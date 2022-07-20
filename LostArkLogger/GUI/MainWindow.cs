@@ -1,5 +1,9 @@
-﻿using System.ComponentModel;
+﻿using AccessoryOptimizer.Models;
+using AccessoryOptimizer.Services;
+using LostArkLogger.Utilities;
+using System.ComponentModel;
 using System.Net;
+using static AccessoryOptimizer.Services.PermutationService;
 
 namespace LostArkLogger
 {
@@ -36,9 +40,9 @@ namespace LostArkLogger
             loggedPacketCountLabel.Text = "Logged Packets : 0";
             loggedPacketCountLabel.DataBindings.Add("Text", this, nameof(PacketCount));
             //sniffModeCheckbox.Checked = Properties.Settings.Default.Npcap;
-            // overlay = new Overlay();
-            // overlay.AddSniffer(sniffer);
-            // overlay.Show();
+            //overlay = new Overlay();
+            //overlay.AddSniffer(sniffer);
+            //overlay.Show();
 
             _permutationService = new PermutationService();
             InitializeOptions();
