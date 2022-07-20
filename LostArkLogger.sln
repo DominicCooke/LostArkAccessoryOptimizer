@@ -5,7 +5,11 @@ VisualStudioVersion = 17.2.32630.192
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LostArkLogger", "LostArkLogger\LostArkLogger.csproj", "{963F7524-9531-4027-8CE1-C47716DC0A50}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MachinaNet6", "MachinaNet6\MachinaNet6.csproj", "{14B51637-905A-45FB-B580-9619A1B32348}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MachinaNet6", "MachinaNet6\MachinaNet6.csproj", "{14B51637-905A-45FB-B580-9619A1B32348}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LostArkLoggerTests", "LostArkLoggerTests\LostArkLoggerTests.csproj", "{520F33A0-5E5C-4899-85CF-91542E0D1895}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AccessoryOptimizer", "AccessoryOptimizer\AccessoryOptimizer.csproj", "{47502DF6-62C6-443E-BC45-418B96A1E4AA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +25,14 @@ Global
 		{14B51637-905A-45FB-B580-9619A1B32348}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{14B51637-905A-45FB-B580-9619A1B32348}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{14B51637-905A-45FB-B580-9619A1B32348}.Release|Any CPU.Build.0 = Release|Any CPU
+		{520F33A0-5E5C-4899-85CF-91542E0D1895}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{520F33A0-5E5C-4899-85CF-91542E0D1895}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{520F33A0-5E5C-4899-85CF-91542E0D1895}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{520F33A0-5E5C-4899-85CF-91542E0D1895}.Release|Any CPU.Build.0 = Release|Any CPU
+		{47502DF6-62C6-443E-BC45-418B96A1E4AA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{47502DF6-62C6-443E-BC45-418B96A1E4AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{47502DF6-62C6-443E-BC45-418B96A1E4AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{47502DF6-62C6-443E-BC45-418B96A1E4AA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

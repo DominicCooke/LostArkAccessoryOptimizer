@@ -8,6 +8,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <AssemblyName>DpsMeter</AssemblyName>
     <ApplicationIcon>Resources\winged-sword.ico</ApplicationIcon>
+    <StartupObject>LostArkLogger.Program</StartupObject>
   </PropertyGroup>
 
   <ItemGroup>
@@ -26,6 +27,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\AccessoryOptimizer\AccessoryOptimizer.csproj" />
     <ProjectReference Include="..\MachinaNet6\MachinaNet6.csproj" />
   </ItemGroup>
 

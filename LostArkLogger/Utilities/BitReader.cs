@@ -6,7 +6,7 @@ namespace LostArkLogger
 {
     public class BitReader : IDisposable
     {
-        private byte[] Data;
+        public byte[] Data;
         private Int32 BitOffset;
         private Int32 ByteOffset;
         public BitReader(Byte[] data, Int32 offset = 0)

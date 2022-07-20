@@ -11,7 +11,7 @@ namespace LostArkLogger
 {
     internal static class Program
     {
-        public static bool IsConsole = Console.OpenStandardInput(1) != Stream.Null;
+        public static bool IsConsole = false;
         [STAThread]
         static void Main(string[] args)
         {

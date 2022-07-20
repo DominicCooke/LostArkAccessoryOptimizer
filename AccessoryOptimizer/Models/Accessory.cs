@@ -1,0 +1,62 @@
+﻿using System.Text.Json.Serialization;
+
+namespace AccessoryOptimizer.Models
+{
+    public class Accessory
+    {
+        [JsonPropertyName("id")]
+        public Guid Id { get; set; }
+
+        [JsonPropertyName("acessoryType")]
+        public AccessoryType AccessoryType { get; set; }
+
+        [JsonPropertyName("accessoryRank")]
+        public AccessoryRank AccessoryRank { get; set; }
+
+        [JsonPropertyName("quality")]
+        public int Quality { get; set; }
+
+        [JsonPropertyName("minimumBid")]
+        public int MinimumBid { get; set; }
+
+        [JsonPropertyName("buyNowPrice")]
+        public int BuyNowPrice { get; set; }
+
+        [JsonPropertyName("engravings")]
+        public List<Engraving> Engravings { get; set; }
+
+        [JsonPropertyName("negativeEngraving")]
+        public Engraving NegativeEngraving { get; set; }
+
+        [JsonPropertyName("statsValue")]
+        public StatsValue StatsValue { get; set; }
+
+        [JsonConstructor]
+        public Accessory(Guid id, AccessoryType accessoryType, AccessoryRank accessoryRank, int quality, int minimumBid, int buyNowPrice, List<Engraving> engravings, Engraving negativeEngraving, StatsValue statsValue)
+        {
+            AccessoryType = accessoryType;
+            AccessoryRank = accessoryRank;
+            Quality = quality;
+            MinimumBid = minimumBid;
+            BuyNowPrice = buyNowPrice;
+            Engravings = engravings;
+            NegativeEngraving = negativeEngraving;
+            StatsValue = statsValue;
+            Id = id;
+
+        }
+        public Accessory(AccessoryType accessoryType, AccessoryRank accessoryRank, int quality, int minimumBid, int buyNowPrice, List<Engraving> engravings, Engraving negativeEngraving, Stats stats)
+        {
+            AccessoryType = accessoryType;
+            AccessoryRank = accessoryRank;
+            Quality = quality;
+            MinimumBid = minimumBid;
+            BuyNowPrice = buyNowPrice;
+            Engravings = engravings;
+            NegativeEngraving = negativeEngraving;
+            StatsValue = new StatsValue(stats);
+
+            Id = Guid.NewGuid();
+        }
+    }
+}

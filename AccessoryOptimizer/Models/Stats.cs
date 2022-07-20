@@ -1,0 +1,61 @@
+﻿namespace AccessoryOptimizer.Models
+{
+    public class Stats
+    {
+        public Stat_Type StatType1;
+        public int Stat1Quantity;
+        public Stat_Type? StatType2 = null;
+        public int Stat2Quantity = 0;
+
+        public Stats(int statType1, int stat1Quantity)
+        {
+            StatType1 = (Stat_Type)statType1;
+            Stat1Quantity = stat1Quantity;
+        }
+
+        public Stats(int statType1, int stat1Quantity, int statType2, int stat2Quantity)
+        {
+            StatType1 = (Stat_Type)statType1;
+            Stat1Quantity = stat1Quantity;
+            StatType2 = (Stat_Type)statType2;
+            Stat2Quantity = stat2Quantity;
+        }
+
+        public Stats(Stat_Type statType1, int stat1Quantity, Stat_Type? statType2 = null, int stat2Quantity = 0)
+        {
+            StatType1 = statType1;
+            Stat1Quantity = stat1Quantity;
+            StatType2 = statType2;
+            Stat2Quantity = stat2Quantity;
+        }
+
+        public Stats(AccessoryType accessoryType, Stat_Type statType1, Stat_Type? statType2 = null)
+        {
+            StatType1 = statType1;
+            Stat1Quantity = GetRandomAccessoryStatValue(accessoryType);
+
+            if (statType2 != null)
+            {
+                StatType2 = statType2;
+                Stat2Quantity = GetRandomAccessoryStatValue(accessoryType);
+            }
+        }
+
+        private int GetRandomAccessoryStatValue(AccessoryType accessoryType)
+        {
+            Random random = new Random();
+
+            switch (accessoryType)
+            {
+                case AccessoryType.Ring:
+                    return random.Next(161, 199);
+                case AccessoryType.Earring:
+                    return random.Next(241, 299);
+                case AccessoryType.Necklace:
+                    return random.Next(401, 499);
+            }
+
+            return 0;
+        }
+    }
+}
