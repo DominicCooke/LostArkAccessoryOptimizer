@@ -287,6 +287,7 @@ namespace LostArkLogger
                     var env = new PKTInitEnv(new BitReader(payload));
                     beforeNewZone?.Invoke();
                     if (currentEncounter.Infos.Count <= 15) Encounters.Remove(currentEncounter);
+                    else currentEncounter.End = DateTime.Now;
 
                     currentEncounter = new Encounter();
                     Encounters.Add(currentEncounter);
@@ -334,7 +335,7 @@ namespace LostArkLogger
                             }
                         }
                     }
-
+                    currentEncounter.End = DateTime.Now;
                     currentEncounter = new Encounter();
                     currentEncounter.Entities = Encounters.Last().Entities; // preserve entities
                     if (WasWipe || Encounters.Last().AfterWipe)
