@@ -244,11 +244,7 @@ namespace LostArkLogger
                 // if (opcode != OpCodes.PKTMoveError && opcode != OpCodes.PKTMoveNotify && opcode != OpCodes.PKTMoveNotifyList && opcode != OpCodes.PKTTransitStateNotify && opcode != OpCodes.PKTPing && opcode != OpCodes.PKTPong)
                 //    Console.WriteLine(opcode + " : " + opcode.ToString("X") + " : " + BitConverter.ToString(payload));
 
-                if (opcode == OpCodes.S_AuctionHistoryResult || opcode == OpCodes.S_AuctionSearchResult || opcode == OpCodes.S_MarketLookupMultiResult || opcode == OpCodes.S_MarketLookupResult || opcode == OpCodes.S_MarketPageResult || opcode == OpCodes.S_MarketSearchResult)
-                {
-                    Console.WriteLine("awooga " + opcode.ToString());
-                }
-
+                
                 if (opcode == OpCodes.PKTAuctionSearchResult)
                 {
                     var pc = new PKTAuctionSearchResult(new BitReader(payload));
@@ -366,56 +362,56 @@ namespace LostArkLogger
                 }
                 else if (opcode == OpCodes.PKTInitPC)
                 {
-                    var pc = new PKTInitPC(new BitReader(payload));
-                    beforeNewZone?.Invoke();
-                    if (currentEncounter.Infos.Count == 0) Encounters.Remove(currentEncounter);
-                    currentEncounter = new Encounter();
-                    Encounters.Add(currentEncounter);
-                    _localPlayerName = pc.Name;
-                    _localGearLevel = pc.GearLevel;
-                    var tempEntity = new Entity
-                    {
-
-                        EntityId = pc.PlayerId,
-                        Name = _localPlayerName,
-                        ClassName = Npc.GetPcClass(pc.ClassId),
-                        Type = Entity.EntityType.Player,
-                        GearLevel = _localGearLevel
-                    };
-                    currentEncounter.Entities.AddOrUpdate(tempEntity);
-                    statusEffectTracker.Process(pc);
-                    onNewZone?.Invoke();
-                    Logger.AppendLog(3, pc.PlayerId.ToString("X"), pc.Name, pc.ClassId.ToString(), Npc.GetPcClass(pc.ClassId), pc.Level.ToString(), pc.statPair.Value[pc.statPair.StatType.IndexOf((Byte)StatType.STAT_TYPE_HP)].ToString(), pc.statPair.Value[pc.statPair.StatType.IndexOf((Byte)StatType.STAT_TYPE_MAX_HP)].ToString());
+                    //var pc = new PKTInitPC(new BitReader(payload));
+                    //beforeNewZone?.Invoke();
+                    //if (currentEncounter.Infos.Count == 0) Encounters.Remove(currentEncounter);
+                    //currentEncounter = new Encounter();
+                    //Encounters.Add(currentEncounter);
+                    //_localPlayerName = pc.Name;
+                    //_localGearLevel = pc.GearLevel;
+                    //var tempEntity = new Entity
+                    //{
+                    //
+                    //    EntityId = pc.PlayerId,
+                    //    Name = _localPlayerName,
+                    //    ClassName = Npc.GetPcClass(pc.ClassId),
+                    //    Type = Entity.EntityType.Player,
+                    //    GearLevel = _localGearLevel
+                    //};
+                    //currentEncounter.Entities.AddOrUpdate(tempEntity);
+                    //statusEffectTracker.Process(pc);
+                    //onNewZone?.Invoke();
+                    //Logger.AppendLog(3, pc.PlayerId.ToString("X"), pc.Name, pc.ClassId.ToString(), Npc.GetPcClass(pc.ClassId), pc.Level.ToString(), pc.statPair.Value[pc.statPair.StatType.IndexOf((Byte)StatType.STAT_TYPE_HP)].ToString(), pc.statPair.Value[pc.statPair.StatType.IndexOf((Byte)StatType.STAT_TYPE_MAX_HP)].ToString());
                 }
                 else if (opcode == OpCodes.PKTNewPC)
                 {
-                    var pcPacket = new PKTNewPC(new BitReader(payload));
-                    var pc = pcPacket.pCStruct;
-                    var temp = new Entity
-                    {
-                        EntityId = pc.PlayerId,
-                        PartyId = pc.PartyId,
-                        Name = pc.Name,
-                        ClassName = Npc.GetPcClass(pc.ClassId),
-                        Type = Entity.EntityType.Player,
-                        GearLevel = pc.GearLevel
-                    };
-                    currentEncounter.Entities.AddOrUpdate(temp);
-                    statusEffectTracker.Process(pcPacket);
-                    Logger.AppendLog(3, pc.PlayerId.ToString("X"), pc.Name, pc.ClassId.ToString(), Npc.GetPcClass(pc.ClassId), pc.Level.ToString(), pc.statPair.Value[pc.statPair.StatType.IndexOf((Byte)StatType.STAT_TYPE_HP)].ToString(), pc.statPair.Value[pc.statPair.StatType.IndexOf((Byte)StatType.STAT_TYPE_MAX_HP)].ToString());
+                   //var pcPacket = new PKTNewPC(new BitReader(payload));
+                   //var pc = pcPacket.pCStruct;
+                   //var temp = new Entity
+                   //{
+                   //    EntityId = pc.PlayerId,
+                   //    PartyId = pc.PartyId,
+                   //    Name = pc.Name,
+                   //    ClassName = Npc.GetPcClass(pc.ClassId),
+                   //    Type = Entity.EntityType.Player,
+                   //    GearLevel = pc.GearLevel
+                   //};
+                   //currentEncounter.Entities.AddOrUpdate(temp);
+                   //statusEffectTracker.Process(pcPacket);
+                   //Logger.AppendLog(3, pc.PlayerId.ToString("X"), pc.Name, pc.ClassId.ToString(), Npc.GetPcClass(pc.ClassId), pc.Level.ToString(), pc.statPair.Value[pc.statPair.StatType.IndexOf((Byte)StatType.STAT_TYPE_HP)].ToString(), pc.statPair.Value[pc.statPair.StatType.IndexOf((Byte)StatType.STAT_TYPE_MAX_HP)].ToString());
                 }
                 else if (opcode == OpCodes.PKTNewNpc)
                 {
-                    var npcPacket = new PKTNewNpc(new BitReader(payload));
-                    var npc = npcPacket.npcStruct;
-                    currentEncounter.Entities.AddOrUpdate(new Entity
-                    {
-                        EntityId = npc.NpcId,
-                        Name = Npc.GetNpcName(npc.NpcType),
-                        Type = Entity.EntityType.Npc
-                    });
-                    statusEffectTracker.Process(npcPacket);
-                    Logger.AppendLog(4, npc.NpcId.ToString("X"), npc.NpcType.ToString(), Npc.GetNpcName(npc.NpcType), npc.statPair.Value[npc.statPair.StatType.IndexOf((Byte)StatType.STAT_TYPE_HP)].ToString(), npc.statPair.Value[npc.statPair.StatType.IndexOf((Byte)StatType.STAT_TYPE_MAX_HP)].ToString());
+                    //var npcPacket = new PKTNewNpc(new BitReader(payload));
+                    //var npc = npcPacket.npcStruct;
+                    //currentEncounter.Entities.AddOrUpdate(new Entity
+                    //{
+                    //    EntityId = npc.NpcId,
+                    //    Name = Npc.GetNpcName(npc.NpcType),
+                    //    Type = Entity.EntityType.Npc
+                    //});
+                    //statusEffectTracker.Process(npcPacket);
+                    //Logger.AppendLog(4, npc.NpcId.ToString("X"), npc.NpcType.ToString(), Npc.GetNpcName(npc.NpcType), npc.statPair.Value[npc.statPair.StatType.IndexOf((Byte)StatType.STAT_TYPE_HP)].ToString(), npc.statPair.Value[npc.statPair.StatType.IndexOf((Byte)StatType.STAT_TYPE_MAX_HP)].ToString());
                 }
                 else if (opcode == OpCodes.PKTRemoveObject)
                 {
@@ -445,25 +441,25 @@ namespace LostArkLogger
                         currentEncounter.Infos.Add(log);
                     }
 
-                    statusEffectTracker.Process(death);
+                    //statusEffectTracker.Process(death);
                 }
                 else if (opcode == OpCodes.PKTPartyStatusEffectAddNotify)
                 {
-                    var partyStatusEffect = new PKTPartyStatusEffectAddNotify(new BitReader(payload));
-                    statusEffectTracker.Process(partyStatusEffect);
-
-                    foreach (var effect in partyStatusEffect.statusEffectDatas)
-                    {
-                        Logger.AppendLog(14, effect.SourceId.ToString("X"), currentEncounter.Entities.GetOrAdd(effect.SourceId).Name, effect.StatusEffectId.ToString("X"), SkillBuff.GetSkillBuffName(effect.StatusEffectId), "01", partyStatusEffect.PartyId.ToString("X"), currentEncounter.Entities.GetOrAdd(partyStatusEffect.PartyId).Name);
-                    }
+                    //var partyStatusEffect = new PKTPartyStatusEffectAddNotify(new BitReader(payload));
+                    //statusEffectTracker.Process(partyStatusEffect);
+                    //
+                    //foreach (var effect in partyStatusEffect.statusEffectDatas)
+                    //{
+                    //    Logger.AppendLog(14, effect.SourceId.ToString("X"), currentEncounter.Entities.GetOrAdd(effect.SourceId).Name, effect.StatusEffectId.ToString("X"), SkillBuff.GetSkillBuffName(effect.StatusEffectId), "01", partyStatusEffect.PartyId.ToString("X"), currentEncounter.Entities.GetOrAdd(partyStatusEffect.PartyId).Name);
+                    //}
 
                 }
                 else if (opcode == OpCodes.PKTPartyStatusEffectRemoveNotify)
                 {
-                    var partyStatusEffectRemove = new PKTPartyStatusEffectRemoveNotify(new BitReader(payload));
-                    statusEffectTracker.Process(partyStatusEffectRemove);
-                    foreach (var effect in partyStatusEffectRemove.StatusEffectIds)
-                        Logger.AppendLog(13, partyStatusEffectRemove.PartyId.ToString("X"), effect.ToString("X"));
+                    //var partyStatusEffectRemove = new PKTPartyStatusEffectRemoveNotify(new BitReader(payload));
+                    //statusEffectTracker.Process(partyStatusEffectRemove);
+                    //foreach (var effect in partyStatusEffectRemove.StatusEffectIds)
+                    //    Logger.AppendLog(13, partyStatusEffectRemove.PartyId.ToString("X"), effect.ToString("X"));
                 }
                 else if (opcode == OpCodes.PKTSkillStartNotify)
                 {
@@ -512,17 +508,17 @@ namespace LostArkLogger
                 }
                 else if (opcode == OpCodes.PKTStatusEffectAddNotify) // shields included
                 {
-                    var statusEffect = new PKTStatusEffectAddNotify(new BitReader(payload));
-                    statusEffectTracker.Process(statusEffect);
-                    var amount = statusEffect.statusEffectData.hasValue == 1 ? BitConverter.ToUInt32(statusEffect.statusEffectData.Value, 0) : 0;
-                    Logger.AppendLog(10, statusEffect.statusEffectData.SourceId.ToString("X"), currentEncounter.Entities.GetOrAdd(statusEffect.statusEffectData.SourceId).Name, statusEffect.statusEffectData.StatusEffectId.ToString("X"), SkillBuff.GetSkillBuffName(statusEffect.statusEffectData.StatusEffectId), statusEffect.New.ToString(), statusEffect.ObjectId.ToString("X"), currentEncounter.Entities.GetOrAdd(statusEffect.ObjectId).Name, amount.ToString());
+                   //var statusEffect = new PKTStatusEffectAddNotify(new BitReader(payload));
+                   //statusEffectTracker.Process(statusEffect);
+                   //var amount = statusEffect.statusEffectData.hasValue == 1 ? BitConverter.ToUInt32(statusEffect.statusEffectData.Value, 0) : 0;
+                   //Logger.AppendLog(10, statusEffect.statusEffectData.SourceId.ToString("X"), currentEncounter.Entities.GetOrAdd(statusEffect.statusEffectData.SourceId).Name, statusEffect.statusEffectData.StatusEffectId.ToString("X"), SkillBuff.GetSkillBuffName(statusEffect.statusEffectData.StatusEffectId), statusEffect.New.ToString(), statusEffect.ObjectId.ToString("X"), currentEncounter.Entities.GetOrAdd(statusEffect.ObjectId).Name, amount.ToString());
                 }
                 else if (opcode == OpCodes.PKTStatusEffectRemoveNotify)
                 {
-                    var statusEffectRemove = new PKTStatusEffectRemoveNotify(new BitReader(payload));
-                    statusEffectTracker.Process(statusEffectRemove);
-                    foreach (var statusEffect in statusEffectRemove.InstanceIds)
-                        Logger.AppendLog(12, statusEffectRemove.ObjectId.ToString("X"), statusEffect.ToString("X"));
+                    //var statusEffectRemove = new PKTStatusEffectRemoveNotify(new BitReader(payload));
+                    //statusEffectTracker.Process(statusEffectRemove);
+                    //foreach (var statusEffect in statusEffectRemove.InstanceIds)
+                    //    Logger.AppendLog(12, statusEffectRemove.ObjectId.ToString("X"), statusEffect.ToString("X"));
 
                 }
                 /*else if (opcode == OpCodes.PKTParalyzationStateNotify)

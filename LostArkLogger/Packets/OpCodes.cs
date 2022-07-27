@@ -1,3 +1,4 @@
+using System;
 namespace LostArkLogger
 {
     public enum OpCodes : UInt16
@@ -815,7 +816,7 @@ namespace LostArkLogger
         PKTDungeonEnterFailNotify = 32897,
         PKTModCubeStageNotify = 32919,
         PKTGuildBattlefieldMercenaryListResult = 32937,
-        PKTAuctionSearchResult = 54481,
+        PKTAuctionSearchResult = 32907,
         PKTLobbyReturnRequest = 32956,
         PKTNpcInteractionStateNotify = 33034,
         PKTTownPermissionUpdateResult = 33098,
@@ -1446,11 +1447,5 @@ namespace LostArkLogger
         PKTAdvRewardRequestResult = 59918,
         PKTFallDownPredictNotify = 59982,
         PKTInitAchievementActive = 59992,
-        S_MarketSearchResult = 3086,
-        S_MarketPageResult = 22717,
-        S_MarketLookupResult = 43302,
-        S_MarketLookupMultiResult = 47121,
-        S_AuctionSearchResult = 49835,
-        S_AuctionHistoryResult = 49970,
     }
 }
