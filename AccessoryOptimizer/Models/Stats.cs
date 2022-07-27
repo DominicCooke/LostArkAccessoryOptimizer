@@ -1,16 +1,34 @@
-﻿namespace AccessoryOptimizer.Models
+﻿using System.Text.Json.Serialization;
+
+namespace AccessoryOptimizer.Models
 {
     public class Stats
     {
+        [JsonPropertyName("statType1")]
         public Stat_Type StatType1;
+
+        [JsonPropertyName("stat1Quantity")]
         public int Stat1Quantity;
+
+        [JsonPropertyName("statType2")]
         public Stat_Type? StatType2 = null;
+
+        [JsonPropertyName("stat2Quantity")]
         public int Stat2Quantity = 0;
 
         public Stats(int statType1, int stat1Quantity)
         {
             StatType1 = (Stat_Type)statType1;
             Stat1Quantity = stat1Quantity;
+        }
+
+        [JsonConstructor]
+        public Stats(int statType1, int stat1Quantity, int? statType2, int stat2Quantity)
+        {
+            StatType1 = (Stat_Type)statType1;
+            Stat1Quantity = stat1Quantity;
+            StatType2 = (Stat_Type)statType2;
+            Stat2Quantity = stat2Quantity;
         }
 
         public Stats(int statType1, int stat1Quantity, int statType2, int stat2Quantity)

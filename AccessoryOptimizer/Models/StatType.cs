@@ -4,6 +4,6 @@
     {
         Crit = 15,
         Specialization = 16,
-        Swiftness = 18        
+        Swiftness = 18
     }
 }

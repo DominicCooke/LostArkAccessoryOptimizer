@@ -11,7 +11,7 @@ namespace AccessoryOptimizer.Models
         [JsonPropertyName("engravingValue")]
         public int EngravingValue { get; set; }
 
-        public string EngravingName => PermutationServiceOptions.EngravingList[Convert.ToUInt32(EngravingType)];
+        public string EngravingName => PSO.EngravingList[Convert.ToUInt32(EngravingType)];
 
         public Engraving(int engravingType, int engravingValue)
         {

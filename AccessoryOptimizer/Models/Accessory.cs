@@ -7,7 +7,7 @@ namespace AccessoryOptimizer.Models
         [JsonPropertyName("id")]
         public Guid Id { get; set; }
 
-        [JsonPropertyName("acessoryType")]
+        [JsonPropertyName("accessoryType")]
         public AccessoryType AccessoryType { get; set; }
 
         [JsonPropertyName("accessoryRank")]
@@ -31,8 +31,11 @@ namespace AccessoryOptimizer.Models
         [JsonPropertyName("statsValue")]
         public StatsValue StatsValue { get; set; }
 
+        [JsonIgnore]
+        public Stats Stats { get; set; }
+
         [JsonConstructor]
-        public Accessory(Guid id, AccessoryType accessoryType, AccessoryRank accessoryRank, int quality, int minimumBid, int buyNowPrice, List<Engraving> engravings, Engraving negativeEngraving, StatsValue statsValue)
+        public Accessory(Guid id, AccessoryType accessoryType, AccessoryRank accessoryRank, int quality, int minimumBid, int buyNowPrice, List<Engraving> engravings, Engraving negativeEngraving, StatsValue statsValue, Stats stats)
         {
             AccessoryType = accessoryType;
             AccessoryRank = accessoryRank;
@@ -43,7 +46,7 @@ namespace AccessoryOptimizer.Models
             NegativeEngraving = negativeEngraving;
             StatsValue = statsValue;
             Id = id;
-
+            Stats = stats;
         }
         public Accessory(AccessoryType accessoryType, AccessoryRank accessoryRank, int quality, int minimumBid, int buyNowPrice, List<Engraving> engravings, Engraving negativeEngraving, Stats stats)
         {
@@ -55,7 +58,7 @@ namespace AccessoryOptimizer.Models
             Engravings = engravings;
             NegativeEngraving = negativeEngraving;
             StatsValue = new StatsValue(stats);
-
+            Stats = stats;
             Id = Guid.NewGuid();
         }
     }

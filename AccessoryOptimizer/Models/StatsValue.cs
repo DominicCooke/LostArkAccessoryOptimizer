@@ -1,19 +1,13 @@
-﻿using System.Text.Json.Serialization;
-
-namespace AccessoryOptimizer.Models
+﻿namespace AccessoryOptimizer.Models
 {
     public class StatsValue
     {
-        [JsonPropertyName("critValue")]
         public int CritValue { get; set; } = 0;
 
-        [JsonPropertyName("specValue")]
         public int SpecValue { get; set; } = 0;
 
-        [JsonPropertyName("swiftValue")]
         public int SwiftValue { get; set; } = 0;
 
-        [JsonConstructor]
         public StatsValue(int critValue, int specValue, int swiftValue)
         {
             CritValue = critValue;
@@ -21,7 +15,14 @@ namespace AccessoryOptimizer.Models
             SwiftValue = swiftValue;
         }
 
+        public StatsValue() { }
+
         public StatsValue(Stats stats)
+        {
+            AddStats(stats);
+        }
+
+        public void AddStats(Stats stats)
         {
             AddValue(stats.StatType1, stats.Stat1Quantity);
 
@@ -29,21 +30,21 @@ namespace AccessoryOptimizer.Models
             {
                 AddValue((Stat_Type)stats.StatType2, (int)stats.Stat2Quantity);
             }
+        }
 
-            void AddValue(Stat_Type statType, int statQuantity)
+        private void AddValue(Stat_Type statType, int statQuantity)
+        {
+            switch (statType)
             {
-                switch (statType)
-                {
-                    case Stat_Type.Specialization:
-                        SpecValue = statQuantity + CritValue;
-                        break;
-                    case Stat_Type.Swiftness:
-                        SwiftValue = statQuantity + CritValue;
-                        break;
-                    case Stat_Type.Crit:
-                        CritValue = statQuantity + CritValue;
-                        break;
-                }
+                case Stat_Type.Specialization:
+                    SpecValue = statQuantity + SpecValue;
+                    break;
+                case Stat_Type.Swiftness:
+                    SwiftValue = statQuantity + SwiftValue;
+                    break;
+                case Stat_Type.Crit:
+                    CritValue = statQuantity + CritValue;
+                    break;
             }
         }
     }

@@ -10,7 +10,7 @@ namespace LostArkLoggerTests.Services
         public void PermutationServiceTests_DataThatHasOneSuccessfulPermutation_AListThatContains1Permutation()
         {
             // arrange
-            PermutationServiceOptions.CurrentAccessories = GetSuccessfulPermutationTestData();
+            PSO.CurrentAccessories = GetSuccessfulPermutationTestData();
 
             // act
             var permutationService = new PermutationService();
@@ -27,7 +27,7 @@ namespace LostArkLoggerTests.Services
             List<Accessory> accessories = GetSuccessfulPermutationTestData();
             accessories.AddRange(GetTestData());
 
-            PermutationServiceOptions.CurrentAccessories = accessories;
+            PSO.CurrentAccessories = accessories;
 
             // act
             var permutationService = new PermutationService();

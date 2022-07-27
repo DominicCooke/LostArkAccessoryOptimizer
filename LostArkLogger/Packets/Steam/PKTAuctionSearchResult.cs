@@ -18,42 +18,65 @@ namespace LostArkLogger
             List<Accessory> accessories = new List<Accessory>();
             for (int i = 0; i < numberOfItems; i++)
             {
-                var itemIdBytes = bytes.Take(59).Reverse().Take(4).ToArray();
+                var itemIdBytes = bytes.Take(49).Reverse().Take(4).ToArray();
+                var itemId2Bytes = bytes.Take(45).Reverse().Take(4).ToArray();
                 int itemId = GetInt32Value(itemIdBytes);
+                int item2Id = GetInt32Value(itemId2Bytes);
 
-                (AccessoryType accessoryType, AccessoryRank accessoryRank) = GetAccessoryType(itemId);
+                (AccessoryType? accessoryType1, AccessoryRank accessoryRank1) = GetAccessoryType(itemId);
+                (AccessoryType? accessoryType2, AccessoryRank accessoryRank2) = GetAccessoryType(item2Id);
 
-                switch (accessoryType)
+                AccessoryType? accessoryType = null;
+                AccessoryRank? accessoryRank = null;
+
+                if (accessoryType1 != null)
                 {
-                    case AccessoryType.Ring:
-                    case AccessoryType.Earring:
-                        {
-                            Accessory? accessory = GetRingOrEarringAccessory(ref bytes, accessoryType, accessoryRank);
-                            if (accessory != null)
-                            {
-                                accessories.Add(accessory);
-                            }
-                            break;
-                        }
-                    case AccessoryType.Necklace:
-                        {
-                            Accessory? accessory = GetNecklaceAccessory(ref bytes, accessoryType, accessoryRank);
-                            if (accessory != null)
-                            {
-                                accessories.Add(accessory);
-                            }
-
-                            break;
-                        }
-
+                    accessoryType = accessoryType1;
+                    accessoryRank = accessoryRank1;
+                }
+                else if (accessoryType2 != null)
+                {
+                    accessoryType = accessoryType2;
+                    accessoryRank = accessoryRank2;
                 }
 
+                if (accessoryType != null && accessoryType != null)
+                {
+                    switch (accessoryType)
+                    {
+                        case AccessoryType.Ring:
+                        case AccessoryType.Earring:
+                            {
+                                Accessory? accessory = GetRingOrEarringAccessory(ref bytes, (AccessoryType)accessoryType, (AccessoryRank)accessoryRank);
+                                if (accessory != null)
+                                {
+                                    accessories.Add(accessory);
+                                }
+                                break;
+                            }
+                        case AccessoryType.Necklace:
+                            {
+                                Accessory? accessory = GetNecklaceAccessory(ref bytes, (AccessoryType)accessoryType!, (AccessoryRank)accessoryRank);
+                                if (accessory != null)
+                                {
+                                    accessories.Add(accessory);
+                                }
+
+                                break;
+                            }
+
+                    }
+                }
+                else
+                {
+                    var sus = true;
+                }
             }
 
             Accessories = accessories;
         }
 
-        private static (AccessoryType, AccessoryRank) GetAccessoryType(int itemId)
+        private static (AccessoryType?, AccessoryRank) GetAccessoryType(int itemId)
         {
             AccessoryType? accessoryType = null;
             AccessoryRank accessoryRank = AccessoryRank.Legendary;
@@ -142,7 +165,7 @@ namespace LostArkLogger
                     break;
             }
 
-            return ((AccessoryType)accessoryType, accessoryRank);
+            return (accessoryType, accessoryRank);
         }
 
         private Accessory? GetNecklaceAccessory(ref byte[] bytes, AccessoryType accessoryType, AccessoryRank accessoryRank)
@@ -157,30 +180,30 @@ namespace LostArkLogger
                 return null;
             }
 
-            int bidPrice = GetInt32Value(earringBytes.Skip(24).Take(4).Reverse().ToArray());
+            int bidPrice = GetInt32Value(earringBytes.Skip(25).Take(4).Reverse().ToArray());
 
-            int stat1Quantity = GetInt32Value(earringBytes.Skip(153).Take(4).Reverse().ToArray());
-            int stat1Type = earringBytes.Skip(177).Take(1).ToArray()[0];
+            int stat1Quantity = GetInt32Value(earringBytes.Skip(152).Take(4).Reverse().ToArray());
+            int stat1Type = earringBytes.Skip(139).Take(1).ToArray()[0];
 
-            int stat2Quantity = GetInt32Value(earringBytes.Skip(124).Take(4).Reverse().ToArray());
-            int stat2Type = earringBytes.Skip(148).Take(1).ToArray()[0];
+            int stat2Quantity = GetInt32Value(earringBytes.Skip(123).Take(4).Reverse().ToArray());
+            int stat2Type = earringBytes.Skip(110).Take(1).ToArray()[0];
 
-            int negEngravingAmount = earringBytes.Skip(182).Take(1).ToArray()[0];
-            int negEngravingType = GetInt32Value(earringBytes.Skip(206).Take(4).Reverse().ToArray());
+            int negEngravingAmount = earringBytes.Skip(181).Take(1).ToArray()[0];
+            int negEngravingType = GetInt32Value(earringBytes.Skip(168).Take(4).Reverse().ToArray());
 
-            int engraving1Amount = GetInt32Value(earringBytes.Skip(231).Take(4).Reverse().ToArray());
-            int engraving1Type = GetInt32Value(earringBytes.Skip(235).Take(4).Reverse().ToArray());
+            int engraving1Amount = GetInt32Value(earringBytes.Skip(193).Take(4).Reverse().ToArray());
+            int engraving1Type = GetInt32Value(earringBytes.Skip(197).Take(4).Reverse().ToArray());
             Engraving engraving1 = new Engraving(engraving1Type, engraving1Amount);
 
-            int engraving2Amount = GetInt32Value(earringBytes.Skip(260).Take(4).Reverse().ToArray());
-            int engraving2Type = GetInt32Value(earringBytes.Skip(264).Take(4).Reverse().ToArray());
+            int engraving2Amount = GetInt32Value(earringBytes.Skip(222).Take(4).Reverse().ToArray());
+            int engraving2Type = GetInt32Value(earringBytes.Skip(226).Take(4).Reverse().ToArray());
 
             Engraving engraving2 = new Engraving(engraving2Type, engraving2Amount);
 
             Stats stats = new Stats(stat1Type, stat1Quantity, stat2Type, stat2Quantity);
 
-            Stat_Type desiredStatType1 = PermutationServiceOptions.DesiredStatType1;
-            Stat_Type desiredStatType2 = PermutationServiceOptions.DesiredStatType2;
+            Stat_Type desiredStatType1 = PSO.DesiredStatType1;
+            Stat_Type desiredStatType2 = PSO.DesiredStatType2;
 
             if ((stats.StatType1 != desiredStatType1 && stats.StatType1 != desiredStatType2) || (stats.StatType2 != desiredStatType1 && stats.StatType2 != desiredStatType2))
             {
@@ -203,18 +226,18 @@ namespace LostArkLogger
                 return null;
             }
 
-            int bidPrice = GetInt32Value(earringBytes.Skip(24).Take(4).Reverse().ToArray());
-            int statQuantity = GetInt32Value(earringBytes.Skip(124).Take(4).Reverse().ToArray());
-            int statType = earringBytes.Skip(148).Take(1).ToArray()[0];
-            int negEngravingAmount = earringBytes.Skip(153).Take(1).ToArray()[0];
-            int negEngravingType = GetInt32Value(earringBytes.Skip(177).Take(4).Reverse().ToArray());
+            int bidPrice = GetInt32Value(earringBytes.Skip(25).Take(4).Reverse().ToArray());
+            int statQuantity = GetInt32Value(earringBytes.Skip(123).Take(4).Reverse().ToArray());
+            int statType = earringBytes.Skip(110).Take(1).ToArray()[0];
+            int negEngravingAmount = earringBytes.Skip(152).Take(1).ToArray()[0];
+            int negEngravingType = GetInt32Value(earringBytes.Skip(139).Take(4).Reverse().ToArray());
 
-            int engraving1Amount = GetInt32Value(earringBytes.Skip(202).Take(4).Reverse().ToArray());
-            int engraving1Type = GetInt32Value(earringBytes.Skip(206).Take(4).Reverse().ToArray());
+            int engraving1Amount = GetInt32Value(earringBytes.Skip(164).Take(4).Reverse().ToArray());
+            int engraving1Type = GetInt32Value(earringBytes.Skip(168).Take(4).Reverse().ToArray());
             Engraving engraving1 = new Engraving(engraving1Type, engraving1Amount);
 
-            int engraving2Amount = GetInt32Value(earringBytes.Skip(231).Take(4).Reverse().ToArray());
-            int engraving2Type = GetInt32Value(earringBytes.Skip(235).Take(4).Reverse().ToArray());
+            int engraving2Amount = GetInt32Value(earringBytes.Skip(193).Take(4).Reverse().ToArray());
+            int engraving2Type = GetInt32Value(earringBytes.Skip(197).Take(4).Reverse().ToArray());
             Engraving engraving2 = new Engraving(engraving2Type, engraving2Amount);
 
             Accessory accessory = new Accessory(accessoryType, accessoryRank, GetStatQuality(accessoryType, accessoryRank, statQuantity), bidPrice, buyOutPrice, new List<Engraving>() { engraving1, engraving2 }, new Engraving(negEngravingType, negEngravingAmount), new Stats(statType, statQuantity));

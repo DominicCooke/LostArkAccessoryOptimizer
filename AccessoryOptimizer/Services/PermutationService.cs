@@ -11,14 +11,16 @@ namespace AccessoryOptimizer.Services
         public List<Accessory> _earrings = new();
         public List<Accessory> _rings = new();
 
+        private List<PermutationDisplay> _permutationDisplays = new();
+
         public void ClearAccessories()
         {
-            PermutationServiceOptions.CurrentAccessories = new();
+            PSO.CurrentAccessories = new();
         }
 
         public void StoreAccessories()
         {
-            string json = JsonSerializer.Serialize(PermutationServiceOptions.CurrentAccessories, new JsonSerializerOptions() { IncludeFields = true });
+            string json = JsonSerializer.Serialize(PSO.CurrentAccessories, new JsonSerializerOptions() { IncludeFields = true });
             File.WriteAllText(@"C:\Users\Dominic\Downloads\data.json", json);
         }
 
@@ -31,13 +33,18 @@ namespace AccessoryOptimizer.Services
             }
             else
             {
-                PermutationServiceOptions.CurrentAccessories = JsonSerializer.Deserialize<List<Accessory>>(json);
-                return PermutationServiceOptions.CurrentAccessories?.Count() > 0;
+                PSO.CurrentAccessories = JsonSerializer.Deserialize<List<Accessory>>(json);
+                return PSO.CurrentAccessories?.Count() > 0;
             }
         }
 
-        public List<PermutationDisplay> Process(List<List<DesiredEngraving>> allDesiredEngravings, int maxPrice)
+        public List<PermutationDisplay> Process(List<List<DesiredEngraving>> allDesiredEngravings, int maxPrice, bool useStoredPermutations = false)
         {
+            if (useStoredPermutations && _permutationDisplays.Count > 0)
+            {
+                return _permutationDisplays;
+            }
+
             if (allDesiredEngravings.Count > 0)
             {
                 var necks = _necklaces.Where(n => n.BuyNowPrice < maxPrice).ToList();
@@ -46,43 +53,15 @@ namespace AccessoryOptimizer.Services
 
                 List<Permutation> permutationsThatMatchesDesiredEngravings = GetPermutations(necks, ears, rings, allDesiredEngravings);
 
-                List<PermutationDisplay> permutationDisplays = permutationsThatMatchesDesiredEngravings.Select(p => new PermutationDisplay(p)).Where(e => !e.IsThereWorryingNegativeEngraving()).ToList();
+                _permutationDisplays = permutationsThatMatchesDesiredEngravings.Select(p => new PermutationDisplay(p)).Where(e => !e.IsThereWorryingNegativeEngraving()).ToList();
 
-                var cheap = permutationDisplays.Where(e => !e.IsThereWorryingNegativeEngraving()).OrderBy(e => e.Cost).Take(10).ToList();
-                //PrintToTrace(cheap);
-
-                var cheapYetGood1 = permutationDisplays.Where(pd => pd.AverageQuality > 80).OrderBy(e => e.Cost).Take(3).ToList();
-                var cheapYetGood2 = permutationDisplays.Where(pd => pd.AverageQuality > 90).OrderBy(e => e.Cost).Take(3).ToList();
-                var cheapYetGood3 = permutationDisplays.Where(pd => pd.AverageQuality > 90 && pd.NegativeSummary.LowestValue < 2).OrderBy(e => e.Cost).Take(3).ToList();
-                var cheapYetGood4 = permutationDisplays.Where(pd => pd.AverageQuality > 80 && pd.NegativeSummary.LowestValue < 2).OrderBy(e => e.Cost).Take(3).ToList();
-                PrintToTrace(cheapYetGood3);
-
-                var averageCost = cheap.Sum(e => e.Cost) / 5;
-                return permutationDisplays;
-
+                return _permutationDisplays;
             }
 
             return new();
         }
 
-        private void PrintToTrace(List<PermutationDisplay> permutations)
-        {
-            foreach (PermutationDisplay p in permutations)
-            {
-                Trace.WriteLine("\n");
-                Trace.WriteLine($"Cost: {p.Cost} AverageQuality: {p.AverageQuality} Cost per Quality: {p.Cost / p.AverageQuality}");
-                Trace.WriteLine("\n");
-                var output = string.Format("{0, 30}{1,30}{2,30}{3,30}", $"-Atk: {p.NegativeSummary.AmountOfAtkPower}", $"-Spd: {p.NegativeSummary.AmountOfAtkSpeed}", $"-Mov: {p.NegativeSummary.AmountOfMoveSpeed}", $"-Def: {p.NegativeSummary.AmountOfDefenceReduction}");
-                Trace.WriteLine(output);
-                foreach (var a in p.GetAccessories())
-                {
 
-                    var output2 = string.Format("{0,-15}{1,30}{2,30}{3,30}{4,30}{5,30}", $"{a.AccessoryType} {a.Quality}", $"{a.Engravings[0].EngravingType} ({a.Engravings[0].EngravingValue})", $"{a.Engravings[1].EngravingType}({a.Engravings[1].EngravingValue})", $"{a.NegativeEngraving.EngravingType} ({a.NegativeEngraving.EngravingValue})", $"Bid: {a.MinimumBid}", $"Cost: {a.BuyNowPrice}");
-
-                    Trace.WriteLine(output2);
-                }
-            }
-        }
 
         private bool DoesPermutationMatchDesiredEngravings(List<DesiredEngraving> desiredEngravings, Permutation permutation)
         {
@@ -243,10 +222,10 @@ namespace AccessoryOptimizer.Services
             return negativeSummary.IsThereWorryingNegativeEngraving();
         }
 
-        public static class PermutationServiceOptions
+        public static class PSO
         {
-            public static Stat_Type DesiredStatType1 = Stat_Type.Specialization;
-            public static Stat_Type DesiredStatType2 = Stat_Type.Crit;
+            public static Stat_Type DesiredStatType1 { get; set; }
+            public static Stat_Type DesiredStatType2 { get; set; }
 
             public static List<Accessory> CurrentAccessories = new();
 

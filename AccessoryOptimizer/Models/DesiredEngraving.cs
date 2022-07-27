@@ -1,9 +1,14 @@
-﻿namespace AccessoryOptimizer.Models
+﻿using System.Text.Json.Serialization;
+
+namespace AccessoryOptimizer.Models
 {
     public class DesiredEngraving
     {
-        public int Amount;
-        public EngravingType EngravingType;
+        [JsonPropertyName("amount")]
+        public int Amount { get; set; }
+
+        [JsonPropertyName("engravingType")]
+        public EngravingType EngravingType { get; set; }
 
         public DesiredEngraving(int amount, EngravingType engravingType)
         {

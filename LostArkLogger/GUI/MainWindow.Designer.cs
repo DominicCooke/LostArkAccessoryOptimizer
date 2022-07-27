@@ -28,15 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainWindow));
             this.loggedPacketCountLabel = new System.Windows.Forms.Label();
-            this.weblink = new System.Windows.Forms.LinkLabel();
-            this.overlayEnabled = new System.Windows.Forms.CheckBox();
-            this.logEnabled = new System.Windows.Forms.CheckBox();
-            this.debugLog = new System.Windows.Forms.CheckBox();
-            this.checkUpdate = new System.Windows.Forms.Button();
-            this.sniffModeCheckbox = new System.Windows.Forms.CheckBox();
-            this.regionSelector = new System.Windows.Forms.ComboBox();
             this.clearButton = new System.Windows.Forms.Button();
             this.processButton = new System.Windows.Forms.Button();
             this.accessoryCount = new System.Windows.Forms.Label();
@@ -44,7 +38,6 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.necklaceCount = new System.Windows.Forms.Label();
             this.earringCount = new System.Windows.Forms.Label();
             this.ringCount = new System.Windows.Forms.Label();
             this.saveButton = new System.Windows.Forms.Button();
@@ -87,6 +80,66 @@
             this.engraving3Quantity_3 = new System.Windows.Forms.TextBox();
             this.engraving2Quantity_3 = new System.Windows.Forms.TextBox();
             this.engraving1Quantity_3 = new System.Windows.Forms.TextBox();
+            this.necklaceCount = new System.Windows.Forms.Label();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.label15 = new System.Windows.Forms.Label();
+            this.desiredStatType1 = new System.Windows.Forms.ComboBox();
+            this.desiredStatType2 = new System.Windows.Forms.ComboBox();
+            this.label16 = new System.Windows.Forms.Label();
+            this.label17 = new System.Windows.Forms.Label();
+            this.engraving6Quantity_4 = new System.Windows.Forms.TextBox();
+            this.engraving5Quantity_4 = new System.Windows.Forms.TextBox();
+            this.engraving4Quantity_4 = new System.Windows.Forms.TextBox();
+            this.engraving3Quantity_4 = new System.Windows.Forms.TextBox();
+            this.engraving2Quantity_4 = new System.Windows.Forms.TextBox();
+            this.engraving1Quantity_4 = new System.Windows.Forms.TextBox();
+            this.engraving6Quantity_5 = new System.Windows.Forms.TextBox();
+            this.engraving5Quantity_5 = new System.Windows.Forms.TextBox();
+            this.engraving4Quantity_5 = new System.Windows.Forms.TextBox();
+            this.engraving3Quantity_5 = new System.Windows.Forms.TextBox();
+            this.engraving2Quantity_5 = new System.Windows.Forms.TextBox();
+            this.engraving1Quantity_5 = new System.Windows.Forms.TextBox();
+            this.engraving6Quantity_6 = new System.Windows.Forms.TextBox();
+            this.engraving5Quantity_6 = new System.Windows.Forms.TextBox();
+            this.engraving4Quantity_6 = new System.Windows.Forms.TextBox();
+            this.engraving3Quantity_6 = new System.Windows.Forms.TextBox();
+            this.engraving2Quantity_6 = new System.Windows.Forms.TextBox();
+            this.engraving1Quantity_6 = new System.Windows.Forms.TextBox();
+            this.saveLastEngravingsButton = new System.Windows.Forms.Button();
+            this.loadLastEngravingsButton = new System.Windows.Forms.Button();
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.cheapest_Textbox = new System.Windows.Forms.TextBox();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.highestStat1_textBox = new System.Windows.Forms.TextBox();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.highestStat2_textBox = new System.Windows.Forms.TextBox();
+            this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.cheapest500HighStat1_textBox = new System.Windows.Forms.TextBox();
+            this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.cheapest500HighStat2_textBox = new System.Windows.Forms.TextBox();
+            this.tabPage6 = new System.Windows.Forms.TabPage();
+            this.cheapestWithRelicNeck_textBox = new System.Windows.Forms.TextBox();
+            this.tabPage7 = new System.Windows.Forms.TabPage();
+            this.cheapest80Q_textBox = new System.Windows.Forms.TextBox();
+            this.tabPage8 = new System.Windows.Forms.TabPage();
+            this.cheapest90Q_textBox = new System.Windows.Forms.TextBox();
+            this.tabPage9 = new System.Windows.Forms.TabPage();
+            this.cheapest95Q_textBox = new System.Windows.Forms.TextBox();
+            this.reuse_checkBox = new System.Windows.Forms.CheckBox();
+            this.label18 = new System.Windows.Forms.Label();
+            this.panel1.SuspendLayout();
+            this.tabControl1.SuspendLayout();
+            this.tabPage1.SuspendLayout();
+            this.tabPage2.SuspendLayout();
+            this.tabPage3.SuspendLayout();
+            this.tabPage4.SuspendLayout();
+            this.tabPage5.SuspendLayout();
+            this.tabPage6.SuspendLayout();
+            this.tabPage7.SuspendLayout();
+            this.tabPage8.SuspendLayout();
+            this.tabPage9.SuspendLayout();
             this.SuspendLayout();
             // 
             // loggedPacketCountLabel
@@ -99,115 +152,30 @@
             this.loggedPacketCountLabel.TabIndex = 2;
             this.loggedPacketCountLabel.Text = "Logged Packets : 0";
             // 
-            // weblink
-            // 
-            this.weblink.AutoSize = true;
-            this.weblink.Location = new System.Drawing.Point(206, 12);
-            this.weblink.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.weblink.Name = "weblink";
-            this.weblink.Size = new System.Drawing.Size(67, 15);
-            this.weblink.TabIndex = 4;
-            this.weblink.TabStop = true;
-            this.weblink.Text = "by shalzuth";
-            this.weblink.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.weblink_LinkClicked);
-            // 
-            // overlayEnabled
-            // 
-            this.overlayEnabled.AutoSize = true;
-            this.overlayEnabled.Checked = true;
-            this.overlayEnabled.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.overlayEnabled.Location = new System.Drawing.Point(16, 42);
-            this.overlayEnabled.Margin = new System.Windows.Forms.Padding(5, 3, 5, 3);
-            this.overlayEnabled.Name = "overlayEnabled";
-            this.overlayEnabled.Size = new System.Drawing.Size(66, 19);
-            this.overlayEnabled.TabIndex = 5;
-            this.overlayEnabled.Text = "Overlay";
-            this.overlayEnabled.UseVisualStyleBackColor = true;
-            this.overlayEnabled.CheckedChanged += new System.EventHandler(this.overlayEnabled_CheckedChanged);
-            // 
-            // logEnabled
-            // 
-            this.logEnabled.AutoSize = true;
-            this.logEnabled.Checked = true;
-            this.logEnabled.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.logEnabled.Location = new System.Drawing.Point(16, 73);
-            this.logEnabled.Margin = new System.Windows.Forms.Padding(5, 3, 5, 3);
-            this.logEnabled.Name = "logEnabled";
-            this.logEnabled.Size = new System.Drawing.Size(46, 19);
-            this.logEnabled.TabIndex = 6;
-            this.logEnabled.Text = "Log";
-            this.logEnabled.UseVisualStyleBackColor = true;
-            this.logEnabled.CheckedChanged += new System.EventHandler(this.logEnabled_CheckedChanged);
-            // 
-            // debugLog
-            // 
-            this.debugLog.AutoSize = true;
-            this.debugLog.Location = new System.Drawing.Point(108, 42);
-            this.debugLog.Margin = new System.Windows.Forms.Padding(5, 3, 5, 3);
-            this.debugLog.Name = "debugLog";
-            this.debugLog.Size = new System.Drawing.Size(61, 19);
-            this.debugLog.TabIndex = 9;
-            this.debugLog.Text = "Debug";
-            this.debugLog.UseVisualStyleBackColor = true;
-            this.debugLog.CheckedChanged += new System.EventHandler(this.debugLog_CheckedChanged);
-            // 
-            // checkUpdate
-            // 
-            this.checkUpdate.Location = new System.Drawing.Point(16, 101);
-            this.checkUpdate.Margin = new System.Windows.Forms.Padding(5, 3, 5, 3);
-            this.checkUpdate.Name = "checkUpdate";
-            this.checkUpdate.Size = new System.Drawing.Size(91, 31);
-            this.checkUpdate.TabIndex = 11;
-            this.checkUpdate.Text = "Check Update";
-            this.checkUpdate.UseVisualStyleBackColor = true;
-            this.checkUpdate.Click += new System.EventHandler(this.checkUpdate_Click);
-            // 
-            // sniffModeCheckbox
-            // 
-            this.sniffModeCheckbox.AutoSize = true;
-            this.sniffModeCheckbox.Location = new System.Drawing.Point(196, 42);
-            this.sniffModeCheckbox.Margin = new System.Windows.Forms.Padding(5, 3, 5, 3);
-            this.sniffModeCheckbox.Name = "sniffModeCheckbox";
-            this.sniffModeCheckbox.Size = new System.Drawing.Size(78, 19);
-            this.sniffModeCheckbox.TabIndex = 9;
-            this.sniffModeCheckbox.Text = "Winpcap?";
-            this.sniffModeCheckbox.UseVisualStyleBackColor = true;
-            this.sniffModeCheckbox.CheckedChanged += new System.EventHandler(this.sniffModeCheckbox_CheckedChanged);
-            // 
-            // regionSelector
-            // 
-            this.regionSelector.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.regionSelector.FormattingEnabled = true;
-            this.regionSelector.Location = new System.Drawing.Point(134, 67);
-            this.regionSelector.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.regionSelector.Name = "regionSelector";
-            this.regionSelector.Size = new System.Drawing.Size(140, 23);
-            this.regionSelector.TabIndex = 12;
-            // 
             // clearButton
             // 
-            this.clearButton.Location = new System.Drawing.Point(312, 12);
+            this.clearButton.Location = new System.Drawing.Point(80, 153);
             this.clearButton.Name = "clearButton";
             this.clearButton.Size = new System.Drawing.Size(65, 23);
             this.clearButton.TabIndex = 13;
-            this.clearButton.Text = "Clear";
+            this.clearButton.Text = "Clear All";
             this.clearButton.UseVisualStyleBackColor = true;
             this.clearButton.Click += new System.EventHandler(this.clearButton_Click);
             // 
             // processButton
             // 
-            this.processButton.Location = new System.Drawing.Point(312, 152);
+            this.processButton.Location = new System.Drawing.Point(151, 199);
             this.processButton.Name = "processButton";
-            this.processButton.Size = new System.Drawing.Size(65, 23);
+            this.processButton.Size = new System.Drawing.Size(130, 23);
             this.processButton.TabIndex = 14;
-            this.processButton.Text = "Process";
+            this.processButton.Text = "Process Permutations";
             this.processButton.UseVisualStyleBackColor = true;
             this.processButton.Click += new System.EventHandler(this.processButton_Click);
             // 
             // accessoryCount
             // 
             this.accessoryCount.AutoSize = true;
-            this.accessoryCount.Location = new System.Drawing.Point(438, 16);
+            this.accessoryCount.Location = new System.Drawing.Point(112, 85);
             this.accessoryCount.Name = "accessoryCount";
             this.accessoryCount.Size = new System.Drawing.Size(13, 15);
             this.accessoryCount.TabIndex = 15;
@@ -215,7 +183,7 @@
             // 
             // refreshButton
             // 
-            this.refreshButton.Location = new System.Drawing.Point(312, 40);
+            this.refreshButton.Location = new System.Drawing.Point(14, 153);
             this.refreshButton.Name = "refreshButton";
             this.refreshButton.Size = new System.Drawing.Size(65, 23);
             this.refreshButton.TabIndex = 16;
@@ -226,43 +194,34 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(383, 16);
+            this.label1.Location = new System.Drawing.Point(3, 7);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(19, 15);
+            this.label1.Size = new System.Drawing.Size(105, 15);
             this.label1.TabIndex = 17;
-            this.label1.Text = "N:";
+            this.label1.Text = "Loaded Necklaces:";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(386, 31);
+            this.label2.Location = new System.Drawing.Point(3, 34);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(16, 15);
+            this.label2.Size = new System.Drawing.Size(94, 15);
             this.label2.TabIndex = 18;
-            this.label2.Text = "E:";
+            this.label2.Text = "Loaded Earrings:";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(385, 46);
+            this.label3.Location = new System.Drawing.Point(3, 60);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(17, 15);
+            this.label3.Size = new System.Drawing.Size(81, 15);
             this.label3.TabIndex = 19;
-            this.label3.Text = "R:";
-            // 
-            // necklaceCount
-            // 
-            this.necklaceCount.AutoSize = true;
-            this.necklaceCount.Location = new System.Drawing.Point(409, 16);
-            this.necklaceCount.Name = "necklaceCount";
-            this.necklaceCount.Size = new System.Drawing.Size(12, 15);
-            this.necklaceCount.TabIndex = 20;
-            this.necklaceCount.Text = "-";
+            this.label3.Text = "Loaded Rings:";
             // 
             // earringCount
             // 
             this.earringCount.AutoSize = true;
-            this.earringCount.Location = new System.Drawing.Point(408, 31);
+            this.earringCount.Location = new System.Drawing.Point(113, 34);
             this.earringCount.Name = "earringCount";
             this.earringCount.Size = new System.Drawing.Size(12, 15);
             this.earringCount.TabIndex = 21;
@@ -271,7 +230,7 @@
             // ringCount
             // 
             this.ringCount.AutoSize = true;
-            this.ringCount.Location = new System.Drawing.Point(408, 46);
+            this.ringCount.Location = new System.Drawing.Point(113, 60);
             this.ringCount.Name = "ringCount";
             this.ringCount.Size = new System.Drawing.Size(12, 15);
             this.ringCount.TabIndex = 22;
@@ -279,21 +238,21 @@
             // 
             // saveButton
             // 
-            this.saveButton.Location = new System.Drawing.Point(312, 96);
+            this.saveButton.Location = new System.Drawing.Point(14, 176);
             this.saveButton.Name = "saveButton";
-            this.saveButton.Size = new System.Drawing.Size(65, 23);
+            this.saveButton.Size = new System.Drawing.Size(131, 23);
             this.saveButton.TabIndex = 23;
-            this.saveButton.Text = "Save";
+            this.saveButton.Text = "Save All Accs";
             this.saveButton.UseVisualStyleBackColor = true;
             this.saveButton.Click += new System.EventHandler(this.saveButton_Click);
             // 
             // loadButton
             // 
-            this.loadButton.Location = new System.Drawing.Point(312, 124);
+            this.loadButton.Location = new System.Drawing.Point(14, 199);
             this.loadButton.Name = "loadButton";
-            this.loadButton.Size = new System.Drawing.Size(65, 23);
+            this.loadButton.Size = new System.Drawing.Size(131, 23);
             this.loadButton.TabIndex = 24;
-            this.loadButton.Text = "Load";
+            this.loadButton.Text = "Load Accs";
             this.loadButton.UseVisualStyleBackColor = true;
             this.loadButton.Click += new System.EventHandler(this.loadButton_Click);
             // 
@@ -317,14 +276,15 @@
             // engraving1QuantityLabel
             // 
             this.engraving1QuantityLabel.AutoSize = true;
-            this.engraving1QuantityLabel.Location = new System.Drawing.Point(651, 16);
+            this.engraving1QuantityLabel.Location = new System.Drawing.Point(651, 9);
             this.engraving1QuantityLabel.Name = "engraving1QuantityLabel";
-            this.engraving1QuantityLabel.Size = new System.Drawing.Size(51, 15);
+            this.engraving1QuantityLabel.Size = new System.Drawing.Size(222, 15);
             this.engraving1QuantityLabel.TabIndex = 27;
-            this.engraving1QuantityLabel.Text = "Amount";
+            this.engraving1QuantityLabel.Text = "Minimum amount of engraving required";
             // 
             // engraving1Quantity_1
             // 
+            this.engraving1Quantity_1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
             this.engraving1Quantity_1.Location = new System.Drawing.Point(651, 34);
             this.engraving1Quantity_1.Name = "engraving1Quantity_1";
             this.engraving1Quantity_1.Size = new System.Drawing.Size(100, 23);
@@ -334,6 +294,7 @@
             // 
             // engraving2Quantity_1
             // 
+            this.engraving2Quantity_1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
             this.engraving2Quantity_1.Location = new System.Drawing.Point(651, 85);
             this.engraving2Quantity_1.Name = "engraving2Quantity_1";
             this.engraving2Quantity_1.Size = new System.Drawing.Size(100, 23);
@@ -361,6 +322,7 @@
             // 
             // engraving3Quantity_1
             // 
+            this.engraving3Quantity_1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
             this.engraving3Quantity_1.Location = new System.Drawing.Point(651, 136);
             this.engraving3Quantity_1.Name = "engraving3Quantity_1";
             this.engraving3Quantity_1.Size = new System.Drawing.Size(100, 23);
@@ -396,6 +358,7 @@
             // 
             // engraving4Quantity_1
             // 
+            this.engraving4Quantity_1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
             this.engraving4Quantity_1.Location = new System.Drawing.Point(651, 187);
             this.engraving4Quantity_1.Name = "engraving4Quantity_1";
             this.engraving4Quantity_1.Size = new System.Drawing.Size(100, 23);
@@ -431,6 +394,7 @@
             // 
             // engraving5Quantity_1
             // 
+            this.engraving5Quantity_1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
             this.engraving5Quantity_1.Location = new System.Drawing.Point(651, 238);
             this.engraving5Quantity_1.Name = "engraving5Quantity_1";
             this.engraving5Quantity_1.Size = new System.Drawing.Size(100, 23);
@@ -466,6 +430,7 @@
             // 
             // engraving6Quantity_1
             // 
+            this.engraving6Quantity_1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
             this.engraving6Quantity_1.Location = new System.Drawing.Point(651, 289);
             this.engraving6Quantity_1.Name = "engraving6Quantity_1";
             this.engraving6Quantity_1.Size = new System.Drawing.Size(100, 23);
@@ -510,15 +475,15 @@
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(321, 320);
+            this.label14.Location = new System.Drawing.Point(156, 42);
             this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(44, 15);
+            this.label14.Size = new System.Drawing.Size(167, 15);
             this.label14.TabIndex = 52;
-            this.label14.Text = "Results";
+            this.label14.Text = "Maximum Individual Acc Cost";
             // 
             // maxCost
             // 
-            this.maxCost.Location = new System.Drawing.Point(312, 181);
+            this.maxCost.Location = new System.Drawing.Point(329, 38);
             this.maxCost.Name = "maxCost";
             this.maxCost.Size = new System.Drawing.Size(100, 23);
             this.maxCost.TabIndex = 53;
@@ -526,6 +491,7 @@
             // 
             // engraving6Quantity_2
             // 
+            this.engraving6Quantity_2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.engraving6Quantity_2.Location = new System.Drawing.Point(757, 289);
             this.engraving6Quantity_2.Name = "engraving6Quantity_2";
             this.engraving6Quantity_2.Size = new System.Drawing.Size(100, 23);
@@ -535,6 +501,7 @@
             // 
             // engraving5Quantity_2
             // 
+            this.engraving5Quantity_2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.engraving5Quantity_2.Location = new System.Drawing.Point(757, 238);
             this.engraving5Quantity_2.Name = "engraving5Quantity_2";
             this.engraving5Quantity_2.Size = new System.Drawing.Size(100, 23);
@@ -544,6 +511,7 @@
             // 
             // engraving4Quantity_2
             // 
+            this.engraving4Quantity_2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.engraving4Quantity_2.Location = new System.Drawing.Point(757, 187);
             this.engraving4Quantity_2.Name = "engraving4Quantity_2";
             this.engraving4Quantity_2.Size = new System.Drawing.Size(100, 23);
@@ -553,6 +521,7 @@
             // 
             // engraving3Quantity_2
             // 
+            this.engraving3Quantity_2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.engraving3Quantity_2.Location = new System.Drawing.Point(757, 136);
             this.engraving3Quantity_2.Name = "engraving3Quantity_2";
             this.engraving3Quantity_2.Size = new System.Drawing.Size(100, 23);
@@ -562,6 +531,7 @@
             // 
             // engraving2Quantity_2
             // 
+            this.engraving2Quantity_2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.engraving2Quantity_2.Location = new System.Drawing.Point(757, 85);
             this.engraving2Quantity_2.Name = "engraving2Quantity_2";
             this.engraving2Quantity_2.Size = new System.Drawing.Size(100, 23);
@@ -571,6 +541,7 @@
             // 
             // engraving1Quantity_2
             // 
+            this.engraving1Quantity_2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.engraving1Quantity_2.Location = new System.Drawing.Point(757, 34);
             this.engraving1Quantity_2.Name = "engraving1Quantity_2";
             this.engraving1Quantity_2.Size = new System.Drawing.Size(100, 23);
@@ -580,6 +551,7 @@
             // 
             // engraving6Quantity_3
             // 
+            this.engraving6Quantity_3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
             this.engraving6Quantity_3.Location = new System.Drawing.Point(863, 289);
             this.engraving6Quantity_3.Name = "engraving6Quantity_3";
             this.engraving6Quantity_3.Size = new System.Drawing.Size(100, 23);
@@ -589,6 +561,7 @@
             // 
             // engraving5Quantity_3
             // 
+            this.engraving5Quantity_3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
             this.engraving5Quantity_3.Location = new System.Drawing.Point(863, 238);
             this.engraving5Quantity_3.Name = "engraving5Quantity_3";
             this.engraving5Quantity_3.Size = new System.Drawing.Size(100, 23);
@@ -598,6 +571,7 @@
             // 
             // engraving4Quantity_3
             // 
+            this.engraving4Quantity_3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
             this.engraving4Quantity_3.Location = new System.Drawing.Point(863, 187);
             this.engraving4Quantity_3.Name = "engraving4Quantity_3";
             this.engraving4Quantity_3.Size = new System.Drawing.Size(100, 23);
@@ -607,6 +581,7 @@
             // 
             // engraving3Quantity_3
             // 
+            this.engraving3Quantity_3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
             this.engraving3Quantity_3.Location = new System.Drawing.Point(863, 136);
             this.engraving3Quantity_3.Name = "engraving3Quantity_3";
             this.engraving3Quantity_3.Size = new System.Drawing.Size(100, 23);
@@ -616,6 +591,7 @@
             // 
             // engraving2Quantity_3
             // 
+            this.engraving2Quantity_3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
             this.engraving2Quantity_3.Location = new System.Drawing.Point(863, 85);
             this.engraving2Quantity_3.Name = "engraving2Quantity_3";
             this.engraving2Quantity_3.Size = new System.Drawing.Size(100, 23);
@@ -625,6 +601,7 @@
             // 
             // engraving1Quantity_3
             // 
+            this.engraving1Quantity_3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
             this.engraving1Quantity_3.Location = new System.Drawing.Point(863, 34);
             this.engraving1Quantity_3.Name = "engraving1Quantity_3";
             this.engraving1Quantity_3.Size = new System.Drawing.Size(100, 23);
@@ -632,11 +609,529 @@
             this.engraving1Quantity_3.Text = "0";
             this.engraving1Quantity_3.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
+            // necklaceCount
+            // 
+            this.necklaceCount.AutoSize = true;
+            this.necklaceCount.Location = new System.Drawing.Point(113, 7);
+            this.necklaceCount.Name = "necklaceCount";
+            this.necklaceCount.Size = new System.Drawing.Size(12, 15);
+            this.necklaceCount.TabIndex = 20;
+            this.necklaceCount.Text = "-";
+            // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.label15);
+            this.panel1.Controls.Add(this.label1);
+            this.panel1.Controls.Add(this.necklaceCount);
+            this.panel1.Controls.Add(this.label2);
+            this.panel1.Controls.Add(this.earringCount);
+            this.panel1.Controls.Add(this.label3);
+            this.panel1.Controls.Add(this.ringCount);
+            this.panel1.Controls.Add(this.accessoryCount);
+            this.panel1.Location = new System.Drawing.Point(15, 39);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(135, 108);
+            this.panel1.TabIndex = 66;
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(3, 85);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(105, 15);
+            this.label15.TabIndex = 67;
+            this.label15.Text = "Total Loaded Accs:";
+            // 
+            // desiredStatType1
+            // 
+            this.desiredStatType1.FormattingEnabled = true;
+            this.desiredStatType1.Location = new System.Drawing.Point(240, 67);
+            this.desiredStatType1.Name = "desiredStatType1";
+            this.desiredStatType1.Size = new System.Drawing.Size(121, 23);
+            this.desiredStatType1.TabIndex = 67;
+            // 
+            // desiredStatType2
+            // 
+            this.desiredStatType2.FormattingEnabled = true;
+            this.desiredStatType2.Location = new System.Drawing.Point(240, 96);
+            this.desiredStatType2.Name = "desiredStatType2";
+            this.desiredStatType2.Size = new System.Drawing.Size(121, 23);
+            this.desiredStatType2.TabIndex = 68;
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(156, 70);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(78, 15);
+            this.label16.TabIndex = 69;
+            this.label16.Text = "Desired Stat 1";
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(156, 99);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(78, 15);
+            this.label17.TabIndex = 70;
+            this.label17.Text = "Desired Stat 2";
+            // 
+            // engraving6Quantity_4
+            // 
+            this.engraving6Quantity_4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.engraving6Quantity_4.Location = new System.Drawing.Point(969, 289);
+            this.engraving6Quantity_4.Name = "engraving6Quantity_4";
+            this.engraving6Quantity_4.Size = new System.Drawing.Size(100, 23);
+            this.engraving6Quantity_4.TabIndex = 76;
+            this.engraving6Quantity_4.Text = "0";
+            this.engraving6Quantity_4.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // engraving5Quantity_4
+            // 
+            this.engraving5Quantity_4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.engraving5Quantity_4.Location = new System.Drawing.Point(969, 238);
+            this.engraving5Quantity_4.Name = "engraving5Quantity_4";
+            this.engraving5Quantity_4.Size = new System.Drawing.Size(100, 23);
+            this.engraving5Quantity_4.TabIndex = 75;
+            this.engraving5Quantity_4.Text = "0";
+            this.engraving5Quantity_4.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // engraving4Quantity_4
+            // 
+            this.engraving4Quantity_4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.engraving4Quantity_4.Location = new System.Drawing.Point(969, 187);
+            this.engraving4Quantity_4.Name = "engraving4Quantity_4";
+            this.engraving4Quantity_4.Size = new System.Drawing.Size(100, 23);
+            this.engraving4Quantity_4.TabIndex = 74;
+            this.engraving4Quantity_4.Text = "0";
+            this.engraving4Quantity_4.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // engraving3Quantity_4
+            // 
+            this.engraving3Quantity_4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.engraving3Quantity_4.Location = new System.Drawing.Point(969, 136);
+            this.engraving3Quantity_4.Name = "engraving3Quantity_4";
+            this.engraving3Quantity_4.Size = new System.Drawing.Size(100, 23);
+            this.engraving3Quantity_4.TabIndex = 73;
+            this.engraving3Quantity_4.Text = "0";
+            this.engraving3Quantity_4.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // engraving2Quantity_4
+            // 
+            this.engraving2Quantity_4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.engraving2Quantity_4.Location = new System.Drawing.Point(969, 85);
+            this.engraving2Quantity_4.Name = "engraving2Quantity_4";
+            this.engraving2Quantity_4.Size = new System.Drawing.Size(100, 23);
+            this.engraving2Quantity_4.TabIndex = 72;
+            this.engraving2Quantity_4.Text = "0";
+            this.engraving2Quantity_4.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // engraving1Quantity_4
+            // 
+            this.engraving1Quantity_4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.engraving1Quantity_4.Location = new System.Drawing.Point(969, 34);
+            this.engraving1Quantity_4.Name = "engraving1Quantity_4";
+            this.engraving1Quantity_4.Size = new System.Drawing.Size(100, 23);
+            this.engraving1Quantity_4.TabIndex = 71;
+            this.engraving1Quantity_4.Text = "0";
+            this.engraving1Quantity_4.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // engraving6Quantity_5
+            // 
+            this.engraving6Quantity_5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.engraving6Quantity_5.Location = new System.Drawing.Point(1075, 289);
+            this.engraving6Quantity_5.Name = "engraving6Quantity_5";
+            this.engraving6Quantity_5.Size = new System.Drawing.Size(100, 23);
+            this.engraving6Quantity_5.TabIndex = 82;
+            this.engraving6Quantity_5.Text = "0";
+            this.engraving6Quantity_5.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // engraving5Quantity_5
+            // 
+            this.engraving5Quantity_5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.engraving5Quantity_5.Location = new System.Drawing.Point(1075, 238);
+            this.engraving5Quantity_5.Name = "engraving5Quantity_5";
+            this.engraving5Quantity_5.Size = new System.Drawing.Size(100, 23);
+            this.engraving5Quantity_5.TabIndex = 81;
+            this.engraving5Quantity_5.Text = "0";
+            this.engraving5Quantity_5.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // engraving4Quantity_5
+            // 
+            this.engraving4Quantity_5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.engraving4Quantity_5.Location = new System.Drawing.Point(1075, 187);
+            this.engraving4Quantity_5.Name = "engraving4Quantity_5";
+            this.engraving4Quantity_5.Size = new System.Drawing.Size(100, 23);
+            this.engraving4Quantity_5.TabIndex = 80;
+            this.engraving4Quantity_5.Text = "0";
+            this.engraving4Quantity_5.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // engraving3Quantity_5
+            // 
+            this.engraving3Quantity_5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.engraving3Quantity_5.Location = new System.Drawing.Point(1075, 136);
+            this.engraving3Quantity_5.Name = "engraving3Quantity_5";
+            this.engraving3Quantity_5.Size = new System.Drawing.Size(100, 23);
+            this.engraving3Quantity_5.TabIndex = 79;
+            this.engraving3Quantity_5.Text = "0";
+            this.engraving3Quantity_5.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // engraving2Quantity_5
+            // 
+            this.engraving2Quantity_5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.engraving2Quantity_5.Location = new System.Drawing.Point(1075, 85);
+            this.engraving2Quantity_5.Name = "engraving2Quantity_5";
+            this.engraving2Quantity_5.Size = new System.Drawing.Size(100, 23);
+            this.engraving2Quantity_5.TabIndex = 78;
+            this.engraving2Quantity_5.Text = "0";
+            this.engraving2Quantity_5.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // engraving1Quantity_5
+            // 
+            this.engraving1Quantity_5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.engraving1Quantity_5.Location = new System.Drawing.Point(1075, 34);
+            this.engraving1Quantity_5.Name = "engraving1Quantity_5";
+            this.engraving1Quantity_5.Size = new System.Drawing.Size(100, 23);
+            this.engraving1Quantity_5.TabIndex = 77;
+            this.engraving1Quantity_5.Text = "0";
+            this.engraving1Quantity_5.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // engraving6Quantity_6
+            // 
+            this.engraving6Quantity_6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+            this.engraving6Quantity_6.Location = new System.Drawing.Point(1181, 289);
+            this.engraving6Quantity_6.Name = "engraving6Quantity_6";
+            this.engraving6Quantity_6.Size = new System.Drawing.Size(100, 23);
+            this.engraving6Quantity_6.TabIndex = 88;
+            this.engraving6Quantity_6.Text = "0";
+            this.engraving6Quantity_6.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // engraving5Quantity_6
+            // 
+            this.engraving5Quantity_6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+            this.engraving5Quantity_6.Location = new System.Drawing.Point(1181, 238);
+            this.engraving5Quantity_6.Name = "engraving5Quantity_6";
+            this.engraving5Quantity_6.Size = new System.Drawing.Size(100, 23);
+            this.engraving5Quantity_6.TabIndex = 87;
+            this.engraving5Quantity_6.Text = "0";
+            this.engraving5Quantity_6.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // engraving4Quantity_6
+            // 
+            this.engraving4Quantity_6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+            this.engraving4Quantity_6.Location = new System.Drawing.Point(1181, 187);
+            this.engraving4Quantity_6.Name = "engraving4Quantity_6";
+            this.engraving4Quantity_6.Size = new System.Drawing.Size(100, 23);
+            this.engraving4Quantity_6.TabIndex = 86;
+            this.engraving4Quantity_6.Text = "0";
+            this.engraving4Quantity_6.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // engraving3Quantity_6
+            // 
+            this.engraving3Quantity_6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+            this.engraving3Quantity_6.Location = new System.Drawing.Point(1181, 136);
+            this.engraving3Quantity_6.Name = "engraving3Quantity_6";
+            this.engraving3Quantity_6.Size = new System.Drawing.Size(100, 23);
+            this.engraving3Quantity_6.TabIndex = 85;
+            this.engraving3Quantity_6.Text = "0";
+            this.engraving3Quantity_6.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // engraving2Quantity_6
+            // 
+            this.engraving2Quantity_6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+            this.engraving2Quantity_6.Location = new System.Drawing.Point(1181, 85);
+            this.engraving2Quantity_6.Name = "engraving2Quantity_6";
+            this.engraving2Quantity_6.Size = new System.Drawing.Size(100, 23);
+            this.engraving2Quantity_6.TabIndex = 84;
+            this.engraving2Quantity_6.Text = "0";
+            this.engraving2Quantity_6.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // engraving1Quantity_6
+            // 
+            this.engraving1Quantity_6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+            this.engraving1Quantity_6.Location = new System.Drawing.Point(1181, 34);
+            this.engraving1Quantity_6.Name = "engraving1Quantity_6";
+            this.engraving1Quantity_6.Size = new System.Drawing.Size(100, 23);
+            this.engraving1Quantity_6.TabIndex = 83;
+            this.engraving1Quantity_6.Text = "0";
+            this.engraving1Quantity_6.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // saveLastEngravingsButton
+            // 
+            this.saveLastEngravingsButton.Location = new System.Drawing.Point(480, 327);
+            this.saveLastEngravingsButton.Name = "saveLastEngravingsButton";
+            this.saveLastEngravingsButton.Size = new System.Drawing.Size(136, 23);
+            this.saveLastEngravingsButton.TabIndex = 89;
+            this.saveLastEngravingsButton.Text = "Save Engraving Profile";
+            this.saveLastEngravingsButton.UseVisualStyleBackColor = true;
+            this.saveLastEngravingsButton.Click += new System.EventHandler(this.saveLastEngravingsButton_Click);
+            // 
+            // loadLastEngravingsButton
+            // 
+            this.loadLastEngravingsButton.Location = new System.Drawing.Point(622, 327);
+            this.loadLastEngravingsButton.Name = "loadLastEngravingsButton";
+            this.loadLastEngravingsButton.Size = new System.Drawing.Size(164, 23);
+            this.loadLastEngravingsButton.TabIndex = 90;
+            this.loadLastEngravingsButton.Text = "Load Last Engraving Profile";
+            this.loadLastEngravingsButton.UseVisualStyleBackColor = true;
+            this.loadLastEngravingsButton.Click += new System.EventHandler(this.loadLastEngravingsButton_Click);
+            // 
+            // contextMenuStrip1
+            // 
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
+            // 
+            // tabControl1
+            // 
+            this.tabControl1.Controls.Add(this.tabPage1);
+            this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Controls.Add(this.tabPage3);
+            this.tabControl1.Controls.Add(this.tabPage4);
+            this.tabControl1.Controls.Add(this.tabPage5);
+            this.tabControl1.Controls.Add(this.tabPage6);
+            this.tabControl1.Controls.Add(this.tabPage7);
+            this.tabControl1.Controls.Add(this.tabPage8);
+            this.tabControl1.Controls.Add(this.tabPage9);
+            this.tabControl1.Location = new System.Drawing.Point(12, 356);
+            this.tabControl1.Name = "tabControl1";
+            this.tabControl1.SelectedIndex = 0;
+            this.tabControl1.Size = new System.Drawing.Size(1349, 601);
+            this.tabControl1.TabIndex = 92;
+            // 
+            // tabPage1
+            // 
+            this.tabPage1.Controls.Add(this.cheapest_Textbox);
+            this.tabPage1.Location = new System.Drawing.Point(4, 24);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(1341, 573);
+            this.tabPage1.TabIndex = 0;
+            this.tabPage1.Text = "Cheapest";
+            this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // cheapest_Textbox
+            // 
+            this.cheapest_Textbox.BackColor = System.Drawing.Color.Black;
+            this.cheapest_Textbox.ForeColor = System.Drawing.Color.White;
+            this.cheapest_Textbox.Location = new System.Drawing.Point(-4, -9);
+            this.cheapest_Textbox.Multiline = true;
+            this.cheapest_Textbox.Name = "cheapest_Textbox";
+            this.cheapest_Textbox.Size = new System.Drawing.Size(1349, 591);
+            this.cheapest_Textbox.TabIndex = 92;
+            // 
+            // tabPage2
+            // 
+            this.tabPage2.Controls.Add(this.highestStat1_textBox);
+            this.tabPage2.Location = new System.Drawing.Point(4, 24);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(1341, 573);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "Highest Stat 1";
+            this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // highestStat1_textBox
+            // 
+            this.highestStat1_textBox.BackColor = System.Drawing.Color.Black;
+            this.highestStat1_textBox.ForeColor = System.Drawing.Color.White;
+            this.highestStat1_textBox.Location = new System.Drawing.Point(-4, -9);
+            this.highestStat1_textBox.Multiline = true;
+            this.highestStat1_textBox.Name = "highestStat1_textBox";
+            this.highestStat1_textBox.Size = new System.Drawing.Size(1349, 591);
+            this.highestStat1_textBox.TabIndex = 92;
+            // 
+            // tabPage3
+            // 
+            this.tabPage3.Controls.Add(this.highestStat2_textBox);
+            this.tabPage3.Location = new System.Drawing.Point(4, 24);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Size = new System.Drawing.Size(1341, 573);
+            this.tabPage3.TabIndex = 2;
+            this.tabPage3.Text = "Highest Stat 2";
+            this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // highestStat2_textBox
+            // 
+            this.highestStat2_textBox.BackColor = System.Drawing.Color.Black;
+            this.highestStat2_textBox.ForeColor = System.Drawing.Color.White;
+            this.highestStat2_textBox.Location = new System.Drawing.Point(-4, -9);
+            this.highestStat2_textBox.Multiline = true;
+            this.highestStat2_textBox.Name = "highestStat2_textBox";
+            this.highestStat2_textBox.Size = new System.Drawing.Size(1349, 591);
+            this.highestStat2_textBox.TabIndex = 92;
+            // 
+            // tabPage4
+            // 
+            this.tabPage4.Controls.Add(this.cheapest500HighStat1_textBox);
+            this.tabPage4.Location = new System.Drawing.Point(4, 24);
+            this.tabPage4.Name = "tabPage4";
+            this.tabPage4.Size = new System.Drawing.Size(1341, 573);
+            this.tabPage4.TabIndex = 3;
+            this.tabPage4.Text = "Cheapest 500 with Highest Stat 1";
+            this.tabPage4.UseVisualStyleBackColor = true;
+            // 
+            // cheapest500HighStat1_textBox
+            // 
+            this.cheapest500HighStat1_textBox.BackColor = System.Drawing.Color.Black;
+            this.cheapest500HighStat1_textBox.ForeColor = System.Drawing.Color.White;
+            this.cheapest500HighStat1_textBox.Location = new System.Drawing.Point(-4, -9);
+            this.cheapest500HighStat1_textBox.Multiline = true;
+            this.cheapest500HighStat1_textBox.Name = "cheapest500HighStat1_textBox";
+            this.cheapest500HighStat1_textBox.Size = new System.Drawing.Size(1349, 591);
+            this.cheapest500HighStat1_textBox.TabIndex = 92;
+            // 
+            // tabPage5
+            // 
+            this.tabPage5.Controls.Add(this.cheapest500HighStat2_textBox);
+            this.tabPage5.Location = new System.Drawing.Point(4, 24);
+            this.tabPage5.Name = "tabPage5";
+            this.tabPage5.Size = new System.Drawing.Size(1341, 573);
+            this.tabPage5.TabIndex = 4;
+            this.tabPage5.Text = "Cheapest 500 with Highest Stat 2";
+            this.tabPage5.UseVisualStyleBackColor = true;
+            // 
+            // cheapest500HighStat2_textBox
+            // 
+            this.cheapest500HighStat2_textBox.BackColor = System.Drawing.Color.Black;
+            this.cheapest500HighStat2_textBox.ForeColor = System.Drawing.Color.White;
+            this.cheapest500HighStat2_textBox.Location = new System.Drawing.Point(-4, -9);
+            this.cheapest500HighStat2_textBox.Multiline = true;
+            this.cheapest500HighStat2_textBox.Name = "cheapest500HighStat2_textBox";
+            this.cheapest500HighStat2_textBox.Size = new System.Drawing.Size(1349, 591);
+            this.cheapest500HighStat2_textBox.TabIndex = 92;
+            // 
+            // tabPage6
+            // 
+            this.tabPage6.Controls.Add(this.cheapestWithRelicNeck_textBox);
+            this.tabPage6.Location = new System.Drawing.Point(4, 24);
+            this.tabPage6.Name = "tabPage6";
+            this.tabPage6.Size = new System.Drawing.Size(1341, 573);
+            this.tabPage6.TabIndex = 5;
+            this.tabPage6.Text = "Cheapest With Relic Neck";
+            this.tabPage6.UseVisualStyleBackColor = true;
+            // 
+            // cheapestWithRelicNeck_textBox
+            // 
+            this.cheapestWithRelicNeck_textBox.BackColor = System.Drawing.Color.Black;
+            this.cheapestWithRelicNeck_textBox.ForeColor = System.Drawing.Color.White;
+            this.cheapestWithRelicNeck_textBox.Location = new System.Drawing.Point(-4, -9);
+            this.cheapestWithRelicNeck_textBox.Multiline = true;
+            this.cheapestWithRelicNeck_textBox.Name = "cheapestWithRelicNeck_textBox";
+            this.cheapestWithRelicNeck_textBox.Size = new System.Drawing.Size(1349, 591);
+            this.cheapestWithRelicNeck_textBox.TabIndex = 92;
+            // 
+            // tabPage7
+            // 
+            this.tabPage7.Controls.Add(this.cheapest80Q_textBox);
+            this.tabPage7.Location = new System.Drawing.Point(4, 24);
+            this.tabPage7.Name = "tabPage7";
+            this.tabPage7.Size = new System.Drawing.Size(1341, 573);
+            this.tabPage7.TabIndex = 6;
+            this.tabPage7.Text = "Cheapest > 80Q";
+            this.tabPage7.UseVisualStyleBackColor = true;
+            // 
+            // cheapest80Q_textBox
+            // 
+            this.cheapest80Q_textBox.BackColor = System.Drawing.Color.Black;
+            this.cheapest80Q_textBox.ForeColor = System.Drawing.Color.White;
+            this.cheapest80Q_textBox.Location = new System.Drawing.Point(-4, -9);
+            this.cheapest80Q_textBox.Multiline = true;
+            this.cheapest80Q_textBox.Name = "cheapest80Q_textBox";
+            this.cheapest80Q_textBox.Size = new System.Drawing.Size(1349, 591);
+            this.cheapest80Q_textBox.TabIndex = 92;
+            // 
+            // tabPage8
+            // 
+            this.tabPage8.Controls.Add(this.cheapest90Q_textBox);
+            this.tabPage8.Location = new System.Drawing.Point(4, 24);
+            this.tabPage8.Name = "tabPage8";
+            this.tabPage8.Size = new System.Drawing.Size(1341, 573);
+            this.tabPage8.TabIndex = 7;
+            this.tabPage8.Text = "Cheapest > 90Q";
+            this.tabPage8.UseVisualStyleBackColor = true;
+            // 
+            // cheapest90Q_textBox
+            // 
+            this.cheapest90Q_textBox.BackColor = System.Drawing.Color.Black;
+            this.cheapest90Q_textBox.ForeColor = System.Drawing.Color.White;
+            this.cheapest90Q_textBox.Location = new System.Drawing.Point(-4, -9);
+            this.cheapest90Q_textBox.Multiline = true;
+            this.cheapest90Q_textBox.Name = "cheapest90Q_textBox";
+            this.cheapest90Q_textBox.Size = new System.Drawing.Size(1349, 591);
+            this.cheapest90Q_textBox.TabIndex = 92;
+            // 
+            // tabPage9
+            // 
+            this.tabPage9.Controls.Add(this.cheapest95Q_textBox);
+            this.tabPage9.Location = new System.Drawing.Point(4, 24);
+            this.tabPage9.Name = "tabPage9";
+            this.tabPage9.Size = new System.Drawing.Size(1341, 573);
+            this.tabPage9.TabIndex = 8;
+            this.tabPage9.Text = "Cheapest > 95Q";
+            this.tabPage9.UseVisualStyleBackColor = true;
+            // 
+            // cheapest95Q_textBox
+            // 
+            this.cheapest95Q_textBox.BackColor = System.Drawing.Color.Black;
+            this.cheapest95Q_textBox.ForeColor = System.Drawing.Color.White;
+            this.cheapest95Q_textBox.Location = new System.Drawing.Point(-4, -9);
+            this.cheapest95Q_textBox.Multiline = true;
+            this.cheapest95Q_textBox.Name = "cheapest95Q_textBox";
+            this.cheapest95Q_textBox.Size = new System.Drawing.Size(1349, 591);
+            this.cheapest95Q_textBox.TabIndex = 92;
+            // 
+            // reuse_checkBox
+            // 
+            this.reuse_checkBox.AutoSize = true;
+            this.reuse_checkBox.Location = new System.Drawing.Point(151, 228);
+            this.reuse_checkBox.Name = "reuse_checkBox";
+            this.reuse_checkBox.Size = new System.Drawing.Size(156, 19);
+            this.reuse_checkBox.TabIndex = 93;
+            this.reuse_checkBox.Text = "Use Stored Permutations";
+            this.reuse_checkBox.UseVisualStyleBackColor = true;
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(15, 331);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(44, 15);
+            this.label18.TabIndex = 94;
+            this.label18.Text = "Results";
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1261, 397);
+            this.ClientSize = new System.Drawing.Size(1373, 969);
+            this.Controls.Add(this.label18);
+            this.Controls.Add(this.reuse_checkBox);
+            this.Controls.Add(this.tabControl1);
+            this.Controls.Add(this.loadLastEngravingsButton);
+            this.Controls.Add(this.saveLastEngravingsButton);
+            this.Controls.Add(this.engraving6Quantity_6);
+            this.Controls.Add(this.engraving5Quantity_6);
+            this.Controls.Add(this.engraving4Quantity_6);
+            this.Controls.Add(this.engraving3Quantity_6);
+            this.Controls.Add(this.engraving2Quantity_6);
+            this.Controls.Add(this.engraving1Quantity_6);
+            this.Controls.Add(this.engraving6Quantity_5);
+            this.Controls.Add(this.engraving5Quantity_5);
+            this.Controls.Add(this.engraving4Quantity_5);
+            this.Controls.Add(this.engraving3Quantity_5);
+            this.Controls.Add(this.engraving2Quantity_5);
+            this.Controls.Add(this.engraving1Quantity_5);
+            this.Controls.Add(this.engraving6Quantity_4);
+            this.Controls.Add(this.engraving5Quantity_4);
+            this.Controls.Add(this.engraving4Quantity_4);
+            this.Controls.Add(this.engraving3Quantity_4);
+            this.Controls.Add(this.engraving2Quantity_4);
+            this.Controls.Add(this.engraving1Quantity_4);
+            this.Controls.Add(this.label17);
+            this.Controls.Add(this.label16);
+            this.Controls.Add(this.desiredStatType2);
+            this.Controls.Add(this.desiredStatType1);
+            this.Controls.Add(this.panel1);
             this.Controls.Add(this.engraving6Quantity_3);
             this.Controls.Add(this.engraving5Quantity_3);
             this.Controls.Add(this.engraving4Quantity_3);
@@ -677,23 +1172,9 @@
             this.Controls.Add(this.engraving1Choice);
             this.Controls.Add(this.loadButton);
             this.Controls.Add(this.saveButton);
-            this.Controls.Add(this.ringCount);
-            this.Controls.Add(this.earringCount);
-            this.Controls.Add(this.necklaceCount);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
             this.Controls.Add(this.refreshButton);
-            this.Controls.Add(this.accessoryCount);
             this.Controls.Add(this.processButton);
             this.Controls.Add(this.clearButton);
-            this.Controls.Add(this.regionSelector);
-            this.Controls.Add(this.checkUpdate);
-            this.Controls.Add(this.debugLog);
-            this.Controls.Add(this.sniffModeCheckbox);
-            this.Controls.Add(this.logEnabled);
-            this.Controls.Add(this.overlayEnabled);
-            this.Controls.Add(this.weblink);
             this.Controls.Add(this.loggedPacketCountLabel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.HelpButton = true;
@@ -702,6 +1183,27 @@
             this.MaximizeBox = false;
             this.Name = "MainWindow";
             this.Text = "Lost Ark Logger";
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
+            this.tabControl1.ResumeLayout(false);
+            this.tabPage1.ResumeLayout(false);
+            this.tabPage1.PerformLayout();
+            this.tabPage2.ResumeLayout(false);
+            this.tabPage2.PerformLayout();
+            this.tabPage3.ResumeLayout(false);
+            this.tabPage3.PerformLayout();
+            this.tabPage4.ResumeLayout(false);
+            this.tabPage4.PerformLayout();
+            this.tabPage5.ResumeLayout(false);
+            this.tabPage5.PerformLayout();
+            this.tabPage6.ResumeLayout(false);
+            this.tabPage6.PerformLayout();
+            this.tabPage7.ResumeLayout(false);
+            this.tabPage7.PerformLayout();
+            this.tabPage8.ResumeLayout(false);
+            this.tabPage8.PerformLayout();
+            this.tabPage9.ResumeLayout(false);
+            this.tabPage9.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -709,13 +1211,6 @@
 
         #endregion
         public System.Windows.Forms.Label loggedPacketCountLabel;
-        private System.Windows.Forms.LinkLabel weblink;
-        private System.Windows.Forms.CheckBox overlayEnabled;
-        public System.Windows.Forms.CheckBox logEnabled;
-        private System.Windows.Forms.CheckBox debugLog;
-        private System.Windows.Forms.Button checkUpdate;
-        private System.Windows.Forms.CheckBox sniffModeCheckbox;
-        private System.Windows.Forms.ComboBox regionSelector;
         private Button clearButton;
         private Button processButton;
         private Label accessoryCount;
@@ -723,7 +1218,6 @@
         private Label label1;
         private Label label2;
         private Label label3;
-        private Label necklaceCount;
         private Label earringCount;
         private Label ringCount;
         private Button saveButton;
@@ -766,5 +1260,55 @@
         private TextBox engraving3Quantity_3;
         private TextBox engraving2Quantity_3;
         private TextBox engraving1Quantity_3;
+        private Label necklaceCount;
+        private Panel panel1;
+        private Label label15;
+        private ComboBox desiredStatType1;
+        private ComboBox desiredStatType2;
+        private Label label16;
+        private Label label17;
+        private TextBox engraving6Quantity_4;
+        private TextBox engraving5Quantity_4;
+        private TextBox engraving4Quantity_4;
+        private TextBox engraving3Quantity_4;
+        private TextBox engraving2Quantity_4;
+        private TextBox engraving1Quantity_4;
+        private TextBox engraving6Quantity_5;
+        private TextBox engraving5Quantity_5;
+        private TextBox engraving4Quantity_5;
+        private TextBox engraving3Quantity_5;
+        private TextBox engraving2Quantity_5;
+        private TextBox engraving1Quantity_5;
+        private TextBox engraving6Quantity_6;
+        private TextBox engraving5Quantity_6;
+        private TextBox engraving4Quantity_6;
+        private TextBox engraving3Quantity_6;
+        private TextBox engraving2Quantity_6;
+        private TextBox engraving1Quantity_6;
+        private Button saveLastEngravingsButton;
+        private Button loadLastEngravingsButton;
+        private TextBox results_textBox;
+        private ContextMenuStrip contextMenuStrip1;
+        private TabControl tabControl1;
+        private TabPage tabPage1;
+        private TabPage tabPage2;
+        private TextBox cheapest_Textbox;
+        private TextBox highestStat1_textBox;
+        private TabPage tabPage3;
+        private TextBox highestStat2_textBox;
+        private TabPage tabPage4;
+        private TextBox cheapest500HighStat1_textBox;
+        private TabPage tabPage5;
+        private TextBox cheapest500HighStat2_textBox;
+        private TabPage tabPage6;
+        private TextBox cheapestWithRelicNeck_textBox;
+        private TabPage tabPage7;
+        private TextBox cheapest80Q_textBox;
+        private TabPage tabPage8;
+        private TextBox cheapest90Q_textBox;
+        private TabPage tabPage9;
+        private TextBox cheapest95Q_textBox;
+        private CheckBox reuse_checkBox;
+        private Label label18;
     }
 }

@@ -815,7 +815,7 @@ namespace LostArkLogger
         PKTDungeonEnterFailNotify = 32897,
         PKTModCubeStageNotify = 32919,
         PKTGuildBattlefieldMercenaryListResult = 32937,
-        PKTAuctionSearchResult = 48394,
+        PKTAuctionSearchResult = 54481,
         PKTLobbyReturnRequest = 32956,
         PKTNpcInteractionStateNotify = 33034,
         PKTTownPermissionUpdateResult = 33098,

@@ -11,17 +11,41 @@
         public int AverageQuality => GetAccessories().Sum(a => a.Quality) / GetAccessories().Count();
 
         public NegativeSummary NegativeSummary { get; set; }
-        public Dictionary<string, int> Engravings;
+        public Dictionary<string, int> Engravings { get; set; }
+        public StatsValue StatsValue { get; set; }
 
         public PermutationDisplay(Permutation permutation) : base(permutation.Earring1, permutation.Earring2, permutation.Ring1, permutation.Ring2, permutation.Necklace)
         {
             NegativeSummary = new NegativeSummary(GetAccessories());
             Engravings = GetEngravingSummary();
+            StatsValue = GetStatsValue();
         }
 
         public bool IsThereWorryingNegativeEngraving()
         {
             return NegativeSummary.IsThereWorryingNegativeEngraving();
+        }
+
+        private StatsValue GetStatsValue()
+        {
+            StatsValue statsValue = new StatsValue();
+
+            AddStatsValue(statsValue, Necklace.StatsValue);
+            AddStatsValue(statsValue, Earring1.StatsValue);
+            AddStatsValue(statsValue, Earring2.StatsValue);
+            AddStatsValue(statsValue, Ring1.StatsValue);
+            AddStatsValue(statsValue, Ring2.StatsValue);
+
+            return statsValue;
+        }
+
+        private StatsValue AddStatsValue(StatsValue destStatsValue, StatsValue srcStatsValue)
+        {
+            destStatsValue.SpecValue += srcStatsValue.SpecValue;
+            destStatsValue.CritValue += srcStatsValue.CritValue;
+            destStatsValue.SwiftValue += srcStatsValue.SwiftValue;
+
+            return destStatsValue; ;
         }
 
         private Dictionary<string, int> GetEngravingSummary()

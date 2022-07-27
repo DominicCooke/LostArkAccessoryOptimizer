@@ -252,7 +252,7 @@ namespace LostArkLogger
                 if (opcode == OpCodes.PKTAuctionSearchResult)
                 {
                     var pc = new PKTAuctionSearchResult(new BitReader(payload));
-                    PermutationServiceOptions.CurrentAccessories.AddRange(pc.Accessories);
+                    PSO.CurrentAccessories.AddRange(pc.Accessories);
                 }
 
                 if (opcode == OpCodes.PKTTriggerStartNotify)
