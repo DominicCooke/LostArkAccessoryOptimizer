@@ -12,14 +12,15 @@ namespace LostArkLogger
             _reader = reader;
             byte[] bytes = _reader.ReadBytes(_reader.Data.Length);
 
-            int numberOfItems = bytes.Take(2).ToArray()[0];
+            bytes = RemoveFromByteArray(bytes, 12);
+            int numberOfItems = bytes.Take(2).Reverse().ToArray()[1];
             bytes = RemoveFromByteArray(bytes, 2);
 
             List<Accessory> accessories = new List<Accessory>();
             for (int i = 0; i < numberOfItems; i++)
             {
-                var itemIdBytes = bytes.Take(49).Reverse().Take(4).ToArray();
-                var itemId2Bytes = bytes.Take(45).Reverse().Take(4).ToArray();
+                var itemIdBytes = bytes.Skip(36).Take(4).Reverse().ToArray();
+                var itemId2Bytes = bytes.Skip(22).Take(4).Reverse().ToArray();
                 int itemId = GetInt32Value(itemIdBytes);
                 int item2Id = GetInt32Value(itemId2Bytes);
 
@@ -173,44 +174,36 @@ namespace LostArkLogger
             var earringBytes = bytes.Take(303).ToArray();
             bytes = RemoveFromByteArray(bytes, 303);
 
-            int buyOutPrice = GetInt32Value(earringBytes.Take(4).Reverse().ToArray());
+            int buyOutPrice = GetInt32Value(earringBytes.Take(277).Reverse().ToArray());
 
             if (buyOutPrice == 0)
             {
                 return null;
             }
 
-            int bidPrice = GetInt32Value(earringBytes.Skip(25).Take(4).Reverse().ToArray());
+            //int bidPrice = GetInt32Value(earringBytes.Skip(277).Take(4).Reverse().ToArray());
 
-            int stat1Quantity = GetInt32Value(earringBytes.Skip(152).Take(4).Reverse().ToArray());
-            int stat1Type = earringBytes.Skip(139).Take(1).ToArray()[0];
+            int stat1Quantity = GetInt32Value(earringBytes.Skip(132).Take(4).Reverse().ToArray());
+            int stat1Type = earringBytes.Skip(123).Take(1).ToArray()[0];
 
-            int stat2Quantity = GetInt32Value(earringBytes.Skip(123).Take(4).Reverse().ToArray());
-            int stat2Type = earringBytes.Skip(110).Take(1).ToArray()[0];
+            int stat2Quantity = GetInt32Value(earringBytes.Skip(99).Take(4).Reverse().ToArray());
+            int stat2Type = earringBytes.Skip(94).Take(1).ToArray()[0];
 
-            int negEngravingAmount = earringBytes.Skip(181).Take(1).ToArray()[0];
-            int negEngravingType = GetInt32Value(earringBytes.Skip(168).Take(4).Reverse().ToArray());
+            int negEngravingAmount = earringBytes.Skip(161).Take(1).ToArray()[0];
+            int negEngravingType = GetInt32Value(earringBytes.Skip(152).Take(4).Reverse().ToArray());
 
-            int engraving1Amount = GetInt32Value(earringBytes.Skip(193).Take(4).Reverse().ToArray());
-            int engraving1Type = GetInt32Value(earringBytes.Skip(197).Take(4).Reverse().ToArray());
+            int engraving1Amount = GetInt32Value(earringBytes.Skip(186).Take(4).Reverse().ToArray());
+            int engraving1Type = GetInt32Value(earringBytes.Skip(181).Take(4).Reverse().ToArray());
             Engraving engraving1 = new Engraving(engraving1Type, engraving1Amount);
 
-            int engraving2Amount = GetInt32Value(earringBytes.Skip(222).Take(4).Reverse().ToArray());
-            int engraving2Type = GetInt32Value(earringBytes.Skip(226).Take(4).Reverse().ToArray());
+            int engraving2Amount = GetInt32Value(earringBytes.Skip(215).Take(4).Reverse().ToArray());
+            int engraving2Type = GetInt32Value(earringBytes.Skip(210).Take(4).Reverse().ToArray());
 
             Engraving engraving2 = new Engraving(engraving2Type, engraving2Amount);
 
             Stats stats = new Stats(stat1Type, stat1Quantity, stat2Type, stat2Quantity);
 
-            Stat_Type desiredStatType1 = PSO.DesiredStatType1;
-            Stat_Type desiredStatType2 = PSO.DesiredStatType2;
-
-            if ((stats.StatType1 != desiredStatType1 && stats.StatType1 != desiredStatType2) || (stats.StatType2 != desiredStatType1 && stats.StatType2 != desiredStatType2))
-            {
-                return null;
-            }
-
-            Accessory accessory = new Accessory(accessoryType, accessoryRank, GetStatQuality(accessoryType, accessoryRank, stat1Quantity, stat2Quantity), bidPrice, buyOutPrice, new List<Engraving>() { engraving1, engraving2 }, new Engraving(negEngravingType, negEngravingAmount), stats);
+            Accessory accessory = new Accessory(accessoryType, accessoryRank, GetStatQuality(accessoryType, accessoryRank, stat1Quantity, stat2Quantity), 0, buyOutPrice, new List<Engraving>() { engraving1, engraving2 }, new Engraving(negEngravingType, negEngravingAmount), stats);
             return accessory;
         }
 
@@ -219,28 +212,30 @@ namespace LostArkLogger
             var earringBytes = bytes.Take(274).ToArray();
             bytes = RemoveFromByteArray(bytes, 274);
 
-            int buyOutPrice = GetInt32Value(earringBytes.Take(4).Reverse().ToArray());
+            int buyOutPrice = GetInt32Value(earringBytes.Skip(248).Take(4).Reverse().ToArray());
 
             if (buyOutPrice == 0)
             {
                 return null;
             }
 
-            int bidPrice = GetInt32Value(earringBytes.Skip(25).Take(4).Reverse().ToArray());
-            int statQuantity = GetInt32Value(earringBytes.Skip(123).Take(4).Reverse().ToArray());
-            int statType = earringBytes.Skip(110).Take(1).ToArray()[0];
-            int negEngravingAmount = earringBytes.Skip(152).Take(1).ToArray()[0];
-            int negEngravingType = GetInt32Value(earringBytes.Skip(139).Take(4).Reverse().ToArray());
+            //int bidPrice = GetInt32Value(earringBytes.Skip(25).Take(4).Reverse().ToArray());
 
-            int engraving1Amount = GetInt32Value(earringBytes.Skip(164).Take(4).Reverse().ToArray());
-            int engraving1Type = GetInt32Value(earringBytes.Skip(168).Take(4).Reverse().ToArray());
+            int statQuantity = GetInt32Value(earringBytes.Skip(103).Take(4).Reverse().ToArray());
+            int statType = earringBytes.Skip(94).Take(1).ToArray()[0];
+
+            int negEngravingAmount = earringBytes.Skip(132).Take(1).ToArray()[0];
+            int negEngravingType = GetInt32Value(earringBytes.Skip(123).Take(4).Reverse().ToArray());
+
+            int engraving1Amount = GetInt32Value(earringBytes.Skip(157).Take(4).Reverse().ToArray());
+            int engraving1Type = GetInt32Value(earringBytes.Skip(152).Take(4).Reverse().ToArray());
             Engraving engraving1 = new Engraving(engraving1Type, engraving1Amount);
 
-            int engraving2Amount = GetInt32Value(earringBytes.Skip(193).Take(4).Reverse().ToArray());
-            int engraving2Type = GetInt32Value(earringBytes.Skip(197).Take(4).Reverse().ToArray());
+            int engraving2Amount = GetInt32Value(earringBytes.Skip(186).Take(4).Reverse().ToArray());
+            int engraving2Type = GetInt32Value(earringBytes.Skip(181).Take(4).Reverse().ToArray());
             Engraving engraving2 = new Engraving(engraving2Type, engraving2Amount);
 
-            Accessory accessory = new Accessory(accessoryType, accessoryRank, GetStatQuality(accessoryType, accessoryRank, statQuantity), bidPrice, buyOutPrice, new List<Engraving>() { engraving1, engraving2 }, new Engraving(negEngravingType, negEngravingAmount), new Stats(statType, statQuantity));
+            Accessory accessory = new Accessory(accessoryType, accessoryRank, GetStatQuality(accessoryType, accessoryRank, statQuantity), 0, buyOutPrice, new List<Engraving>() { engraving1, engraving2 }, new Engraving(negEngravingType, negEngravingAmount), new Stats(statType, statQuantity));
             return accessory;
         }
 

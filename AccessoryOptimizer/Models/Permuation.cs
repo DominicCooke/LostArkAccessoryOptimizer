@@ -26,6 +26,11 @@
             return NegativeSummary.IsThereWorryingNegativeEngraving();
         }
 
+        public bool HasEngravingAtZero()
+        {
+            return NegativeSummary.HasEngravingAtZero();
+        }
+
         private StatsValue GetStatsValue()
         {
             StatsValue statsValue = new StatsValue();

@@ -27,6 +27,8 @@
         Barrage_Enhancement = 193,
         True_Courage = 194,
         Desperate_Salvation = 195,
+        Empress_Grace = 200,
+        Order_of_the_Empreror = 201,
         Master_of_Escape = 202,
         Combat_Readiness = 224,
         Lone_Knight = 225,

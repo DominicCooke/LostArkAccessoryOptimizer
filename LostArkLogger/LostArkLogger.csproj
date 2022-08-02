@@ -17,6 +17,7 @@
 
   <ItemGroup>
     <Folder Include="Data\" />
+    <Folder Include="Packets\Steam\_experimental\" />
   </ItemGroup>
 
   <ItemGroup>

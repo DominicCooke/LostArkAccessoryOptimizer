@@ -1,4 +1,5 @@
 ﻿using K4os.Compression.LZ4;
+using LostArk.Game.Messages.Definitions;
 using LostArkLogger.Utilities;
 using SharpPcap;
 using System.Net.NetworkInformation;
@@ -248,7 +249,14 @@ namespace LostArkLogger
                 if (opcode == OpCodes.PKTAuctionSearchResult)
                 {
                     var pc = new PKTAuctionSearchResult(new BitReader(payload));
+                    //var pc = new S_AuctionSearchResult(new BitReader(payload));
                     PSO.CurrentAccessories.AddRange(pc.Accessories);
+                    Form form = Application.OpenForms["MainWindow"];
+
+                    if(form != null)
+                    {
+                        (form as MainWindow).UpdateCountText();
+                    }
                 }
 
                 if (opcode == OpCodes.PKTTriggerStartNotify)

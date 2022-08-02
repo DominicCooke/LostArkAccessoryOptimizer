@@ -18,6 +18,14 @@
             || AmountOfAtkSpeed > 4;
         }
 
+        public bool HasEngravingAtZero()
+        {
+            return AmountOfMoveSpeed == 0
+            || AmountOfAtkPower == 0
+            || AmountOfDefenceReduction == 0
+            || AmountOfAtkSpeed == 0;
+        }
+
         public NegativeSummary(List<Accessory> accessories)
         {
             foreach (var accessory in accessories)

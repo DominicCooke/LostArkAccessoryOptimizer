@@ -36,7 +36,7 @@ namespace LostArkLogger
             };
             loggedPacketCountLabel.Text = "Logged Packets : 0";
             loggedPacketCountLabel.DataBindings.Add("Text", this, nameof(PacketCount));
-            //sniffModeCheckbox.Checked = Properties.Settings.Default.Npcap;
+
             overlay = new Overlay();
             overlay.AddSniffer(sniffer);
             // overlay.Show();
@@ -44,6 +44,21 @@ namespace LostArkLogger
             _permutationService = new PermutationService();
             InitializeOptions();
         }
+
+        #region Other Stuff
+        private void sniffModeCheckbox_CheckedChanged(object sender, EventArgs e)
+        {
+            this.sniffModeCheckbox.Enabled = false;
+            this.sniffer.use_npcap = sniffModeCheckbox.Checked;
+            this.sniffer.InstallListener();
+            // This will unset the checkbox if it fails to initialize
+            this.sniffModeCheckbox.Checked = this.sniffer.use_npcap;
+            this.sniffModeCheckbox.Enabled = true;
+            Properties.Settings.Default.Npcap = sniffModeCheckbox.Checked;
+            Properties.Settings.Default.Save();
+        }
+        #endregion
+
 
         private void clearButton_Click(object sender, EventArgs e)
         {
@@ -53,20 +68,65 @@ namespace LostArkLogger
 
         private void processButton_Click(object sender, EventArgs e)
         {
+            message_Label.Text = "Processing now!";
+            string message = string.Empty;
             var allDesiredEngravings = GetDesiredEngravings();
 
-            PSO.DesiredStatType1 = Enum.Parse<Stat_Type>(desiredStatType1.SelectedItem.ToString());
-            PSO.DesiredStatType2 = Enum.Parse<Stat_Type>(desiredStatType2.SelectedItem.ToString());
+            if (string.IsNullOrEmpty(desiredStatType1.SelectedItem.ToString()))
+            {
+                message = "Desired stat type 1 needs to be set";
+            }
+            else
+            {
+                PSO.DesiredStatType1 = Enum.Parse<Stat_Type>(desiredStatType1.SelectedItem.ToString());
+            }
+
+            if (string.IsNullOrEmpty(desiredStatType2.SelectedItem.ToString()))
+            {
+                message = "Desired stat type 2 needs to be set";
+            }
+            else
+            {
+                PSO.DesiredStatType2 = Enum.Parse<Stat_Type>(desiredStatType2.SelectedItem.ToString());
+            }
+
+            if (!string.IsNullOrEmpty(message))
+            {
+                message_Label.Text = message;
+                return;
+            }
 
             _permutationService._necklaces = PSO.CurrentAccessories.Where(a => a.AccessoryType == AccessoryType.Necklace).ToList();
             _permutationService._earrings = PSO.CurrentAccessories.Where(a => a.AccessoryType == AccessoryType.Earring).ToList();
             _permutationService._rings = PSO.CurrentAccessories.Where(a => a.AccessoryType == AccessoryType.Ring).ToList();
 
-            var permutations = _permutationService.Process(allDesiredEngravings, int.Parse(maxCost.Text), reuse_checkBox.Checked);
+            if (PSO.DesiredStatType1 != null && PSO.DesiredStatType2 != null)
+            {
+                _permutationService._necklaces = _permutationService._necklaces.Where(n => (n.Stats.StatType1 == PSO.DesiredStatType1 || n.Stats.StatType2 == PSO.DesiredStatType1) && (n.Stats.StatType1 == PSO.DesiredStatType2 || n.Stats.StatType2 == PSO.DesiredStatType2)).ToList();
+            }
+
+            //_permutationService._necklaces.Add(new Accessory(AccessoryType.Necklace, AccessoryRank.Relic, 92, 0, 0, new() { new Engraving(EngravingType.Keen_Blunt_Weapon, 5), new Engraving(EngravingType.Hit_Master, 3) }, new Engraving(EngravingType.Atk_Power_Reduction, 2), new Stats(Stat_Type.Crit, 484, Stat_Type.Specialization, 500)));
+            //_permutationService._rings.Add(new Accessory(AccessoryType.Ring, AccessoryRank.Legendary, 98, 0, 0, new() { new Engraving(EngravingType.Demonic_Impulse, 3), new Engraving(EngravingType.Grudge, 3) }, new Engraving(EngravingType.Defence_Reduction, 2), new Stats(Stat_Type.Specialization, 179)));
+            //_permutationService._rings.Add(new Accessory(AccessoryType.Ring, AccessoryRank.Relic, 100, 0, 0, new() { new Engraving(EngravingType.Adrenaline, 5), new Engraving(EngravingType.Hit_Master, 3) }, new Engraving(EngravingType.Move_Speed_Reduction, 3), new Stats(Stat_Type.Specialization, 200)));
+
+            List<PermutationDisplay> permutations = _permutationService.Process(allDesiredEngravings, int.Parse(maxCost.Text), reuse_checkBox.Checked, filterWorryingNeg_checkBox.Checked, filterZeroNegEngraving_checkBox.Checked);
+
+            message_Label.Text = $"Total Results ({permutations.Count})";
+
+            if (MinimumStatHasValue(min_stat1, out int amount1))
+            {
+                permutations = FilterByMinStat(permutations, (Stat_Type)PSO.DesiredStatType1, amount1);
+            }
+
+            if (MinimumStatHasValue(min_stat2, out int amount2))
+            {
+                permutations = FilterByMinStat(permutations, (Stat_Type)PSO.DesiredStatType2, amount2);
+            }
+
+            message_Label.Text += $" - Filtered Results ({permutations.Count})";
 
             cheapest_Textbox.Text = GetStringOutputOfResults(permutations
                 .OrderBy(p => p.Cost)
-                .Take(5)
                 .ToList());
 
             cheapest500HighStat1_textBox.Text = GetStringOutputOfResults(permutations
@@ -87,16 +147,19 @@ namespace LostArkLogger
 
             cheapest80Q_textBox.Text = GetStringOutputOfResults(permutations
                 .Where(p => p.AverageQuality >= 80)
+                .OrderBy(p => p.Cost)
                 .Take(5)
                 .ToList());
 
             cheapest90Q_textBox.Text = GetStringOutputOfResults(permutations
                 .Where(p => p.AverageQuality >= 90)
+                .OrderBy(p => p.Cost)
                 .Take(5)
                 .ToList());
 
             cheapest95Q_textBox.Text = GetStringOutputOfResults(permutations
                 .Where(p => p.AverageQuality >= 95)
+                .OrderBy(p => p.Cost)
                 .Take(5)
                 .ToList());
 
@@ -105,7 +168,6 @@ namespace LostArkLogger
                 .OrderBy(p => p.Cost)
                 .Take(5)
                 .ToList());
-
 
             highestStat1_textBox.Text = GetStringOutputOfResults(permutations
                 .OrderBy(p => PSO.DesiredStatType1 == Stat_Type.Crit ? p.StatsValue.CritValue : (PSO.DesiredStatType1 == Stat_Type.Specialization ? p.StatsValue.SpecValue : p.StatsValue.SwiftValue))
@@ -120,6 +182,44 @@ namespace LostArkLogger
                 .ToList());
         }
 
+        private List<PermutationDisplay> FilterByMinStat(List<PermutationDisplay> permutationDisplays, Stat_Type statType, int minAmount)
+        {
+            switch (statType)
+            {
+                case Stat_Type.Crit:
+                    return permutationDisplays.Where(p => p.StatsValue.CritValue >= minAmount).ToList();
+                case Stat_Type.Specialization:
+                    return permutationDisplays.Where(p => p.StatsValue.SpecValue >= minAmount).ToList();
+                case Stat_Type.Swiftness:
+                    return permutationDisplays.Where(p => p.StatsValue.SwiftValue >= minAmount).ToList();
+            }
+
+            return permutationDisplays;
+        }
+
+        private bool MinimumStatHasValue(TextBox textBox, out int amount)
+        {
+            amount = 0;
+
+            if (string.IsNullOrEmpty(textBox.Text))
+            {
+                return false;
+            }
+
+            if (!int.TryParse(textBox.Text, out int result))
+            {
+                return false;
+            }
+
+            if (result > 0)
+            {
+                amount = result;
+                return true;
+            }
+
+            return false;
+        }
+
         private void InitializeOptions()
         {
             engraving1Choice.DataSource = GetChoices<EngravingType>();
@@ -131,212 +231,12 @@ namespace LostArkLogger
 
             desiredStatType1.DataSource = GetChoices<Stat_Type>();
             desiredStatType2.DataSource = GetChoices<Stat_Type>();
-
-
         }
-
-        #region Shadowhunter
-        /*
-        private List<DesiredEngraving> GetDesiredEngravingsManual1()
-        {
-            return new()
-            {
-                new DesiredEngraving(3, EngravingType.Demonic_Impulse),
-                new DesiredEngraving(3, EngravingType.Grudge),
-                new DesiredEngraving(15, EngravingType.Hit_Master),
-                new DesiredEngraving(8, EngravingType.Adrenaline),
-                new DesiredEngraving(9, EngravingType.Keen_Blunt_Weapon)
-            };
-        }
-
-        private List<DesiredEngraving> GetDesiredEngravingsManual2()
-        {
-            return new()
-            {
-                new DesiredEngraving(3, EngravingType.Demonic_Impulse),
-                new DesiredEngraving(3, EngravingType.Grudge),
-                new DesiredEngraving(15, EngravingType.Hit_Master),
-                new DesiredEngraving(9, EngravingType.Adrenaline),
-                new DesiredEngraving(8, EngravingType.Keen_Blunt_Weapon)
-            };
-        }
-
-        private List<DesiredEngraving> GetDesiredEngravingsManual3()
-        {
-            return new()
-            {
-                new DesiredEngraving(3, EngravingType.Demonic_Impulse),
-                new DesiredEngraving(3, EngravingType.Grudge),
-                new DesiredEngraving(9, EngravingType.Hit_Master),
-                new DesiredEngraving(15, EngravingType.Adrenaline),
-                new DesiredEngraving(8, EngravingType.Keen_Blunt_Weapon)
-            };
-        }
-
-        private List<DesiredEngraving> GetDesiredEngravingsManual4()
-        {
-            return new()
-            {
-               new DesiredEngraving(3, EngravingType.Demonic_Impulse),
-                new DesiredEngraving(3, EngravingType.Grudge),
-                new DesiredEngraving(8, EngravingType.Hit_Master),
-                new DesiredEngraving(15, EngravingType.Adrenaline),
-                new DesiredEngraving(9, EngravingType.Keen_Blunt_Weapon)
-            };
-        }
-
-        private List<DesiredEngraving> GetDesiredEngravingsManual5()
-        {
-            return new()
-            {
-                new DesiredEngraving(3, EngravingType.Demonic_Impulse),
-                new DesiredEngraving(3, EngravingType.Grudge),
-                new DesiredEngraving(9, EngravingType.Hit_Master),
-                new DesiredEngraving(8, EngravingType.Adrenaline),
-                new DesiredEngraving(15, EngravingType.Keen_Blunt_Weapon)
-            };
-        }
-
-        private List<DesiredEngraving> GetDesiredEngravingsManual6()
-        {
-            return new()
-            {
-                new DesiredEngraving(3, EngravingType.Demonic_Impulse),
-                new DesiredEngraving(3, EngravingType.Grudge),
-                new DesiredEngraving(8, EngravingType.Hit_Master),
-                new DesiredEngraving(9, EngravingType.Adrenaline),
-                new DesiredEngraving(15, EngravingType.Keen_Blunt_Weapon)
-            };
-        }
-        */
-        #endregion
-
-        #region Glavier
-        /*
-         private List<DesiredEngraving> GetDesiredEngravingsManual1()
-         {
-             return new()
-             {
-                 new DesiredEngraving(6, EngravingType.Pinnacle),
-                 new DesiredEngraving(3, EngravingType.Grudge),
-                 new DesiredEngraving(9, EngravingType.Increases_Mass),
-                 new DesiredEngraving(15, EngravingType.Keen_Blunt_Weapon),
-                 new DesiredEngraving(3, EngravingType.Raid_Captain),
-
-             };
-         }
-        */
-        #endregion
-
-        #region Sorceress
-        /*
-        private List<DesiredEngraving> GetDesiredEngravingsManual1()
-        {
-            return new()
-            {
-                new DesiredEngraving(6, EngravingType.Igniter),
-                new DesiredEngraving(3, EngravingType.Grudge),
-                new DesiredEngraving(15, EngravingType.All_Out_Attack),
-                new DesiredEngraving(9, EngravingType.Hit_Master),
-                new DesiredEngraving(3, EngravingType.Adrenaline)
-            };
-        }
-
-        private List<DesiredEngraving> GetDesiredEngravingsManual2()
-        {
-            return new()
-            {
-                new DesiredEngraving(6, EngravingType.Igniter),
-                new DesiredEngraving(3, EngravingType.Grudge),
-                new DesiredEngraving(9, EngravingType.All_Out_Attack),
-                new DesiredEngraving(15, EngravingType.Hit_Master),
-                new DesiredEngraving(3, EngravingType.Adrenaline)
-            };
-        }
-        */
-        #endregion
-
-        #region Gunlancer
-        /*
-        private List<DesiredEngraving> GetDesiredEngravingsManual1()
-        {
-            return new()
-            {
-                new DesiredEngraving(5, EngravingType.Combat_Readiness),
-                new DesiredEngraving(3, EngravingType.Grudge),
-                new DesiredEngraving(15, EngravingType.Barricade),
-                new DesiredEngraving(9, EngravingType.Stabilized_Status),
-                new DesiredEngraving(3, EngravingType.Spirit_Absorption)
-            };
-        }
-
-        private List<DesiredEngraving> GetDesiredEngravingsManual2()
-        {
-            return new()
-            {
-                new DesiredEngraving(5, EngravingType.Combat_Readiness),
-                new DesiredEngraving(3, EngravingType.Grudge),
-                new DesiredEngraving(15, EngravingType.Barricade),
-                new DesiredEngraving(3, EngravingType.Stabilized_Status),
-                new DesiredEngraving(9, EngravingType.Spirit_Absorption)
-            };
-        }
-
-        private List<DesiredEngraving> GetDesiredEngravingsManual3()
-        {
-            return new()
-            {
-                new DesiredEngraving(5, EngravingType.Combat_Readiness),
-                new DesiredEngraving(3, EngravingType.Grudge),
-                new DesiredEngraving(9, EngravingType.Barricade),
-                new DesiredEngraving(15, EngravingType.Stabilized_Status),
-                new DesiredEngraving(3, EngravingType.Spirit_Absorption)
-            };
-        }
-
-        private List<DesiredEngraving> GetDesiredEngravingsManual4()
-        {
-            return new()
-            {
-                new DesiredEngraving(5, EngravingType.Combat_Readiness),
-                new DesiredEngraving(3, EngravingType.Grudge),
-                new DesiredEngraving(3, EngravingType.Barricade),
-                new DesiredEngraving(15, EngravingType.Stabilized_Status),
-                new DesiredEngraving(9, EngravingType.Spirit_Absorption)
-            };
-        }
-
-        private List<DesiredEngraving> GetDesiredEngravingsManual5()
-        {
-            return new()
-            {
-                new DesiredEngraving(5, EngravingType.Combat_Readiness),
-                new DesiredEngraving(3, EngravingType.Grudge),
-                new DesiredEngraving(9, EngravingType.Barricade),
-                new DesiredEngraving(3, EngravingType.Stabilized_Status),
-                new DesiredEngraving(15, EngravingType.Spirit_Absorption)
-            };
-        }
-
-        private List<DesiredEngraving> GetDesiredEngravingsManual6()
-        {
-            return new()
-            {
-                new DesiredEngraving(5, EngravingType.Combat_Readiness),
-                new DesiredEngraving(3, EngravingType.Grudge),
-                new DesiredEngraving(3, EngravingType.Barricade),
-                new DesiredEngraving(9, EngravingType.Stabilized_Status),
-                new DesiredEngraving(15, EngravingType.Spirit_Absorption)
-            };
-        }
-        */
-        #endregion
-
 
         private string[] GetChoices<T>()
         {
             string[] choices = new[] { string.Empty };
-            choices = choices.Concat(Enum.GetNames(typeof(T))).ToArray();
+            choices = choices.Concat(Enum.GetNames(typeof(T))).OrderBy(c => c).ToArray();
             return choices;
         }
 
@@ -345,7 +245,7 @@ namespace LostArkLogger
             UpdateCountText();
         }
 
-        private void UpdateCountText()
+        public void UpdateCountText()
         {
             accessoryCount.Text = PSO.CurrentAccessories.Count.ToString();
             earringCount.Text = PSO.CurrentAccessories.Where(ca => ca.AccessoryType == AccessoryType.Earring).Count().ToString();
@@ -399,18 +299,21 @@ namespace LostArkLogger
 
             foreach (PermutationDisplay p in permutations)
             {
+                overallString.AppendLine("------------------------------------------------------");
+
                 overallString.AppendLine("\n");
-                overallString.AppendLine($"Cost: {p.Cost} AverageQuality: {p.AverageQuality} Cost per Quality: {p.Cost / p.AverageQuality}");
+                overallString.AppendLine($"Cost: {p.Cost}       AverageQuality: {p.AverageQuality}       Cost per Quality: {p.Cost / p.AverageQuality}");
+                overallString.AppendLine($"Crit: {p.StatsValue.CritValue}       Swiftness: {p.StatsValue.SwiftValue}           Specialization: {p.StatsValue.SpecValue}");
+                overallString.AppendLine($"Atk Pow: -{p.NegativeSummary.AmountOfAtkPower}       Atk Spd: -{p.NegativeSummary.AmountOfAtkSpeed}       Mov: -{p.NegativeSummary.AmountOfMoveSpeed}       Def: -{p.NegativeSummary.AmountOfDefenceReduction}");
                 overallString.AppendLine("\n");
 
-                var output = string.Format("{0, 30}{1,30}{2,30}{3,30}", $"-Atk: {p.NegativeSummary.AmountOfAtkPower}", $"-Spd: {p.NegativeSummary.AmountOfAtkSpeed}", $"-Mov: {p.NegativeSummary.AmountOfMoveSpeed}", $"-Def: {p.NegativeSummary.AmountOfDefenceReduction}");
-                overallString.AppendLine(output);
                 foreach (var a in p.GetAccessories())
                 {
-
-                    var output2 = string.Format("{0,-15}{1,30}{2,30}{3,30}{4,30}{5,30}", $"{a.AccessoryType} {a.Quality}", $"{a.Engravings[0].EngravingType} ({a.Engravings[0].EngravingValue})", $"{a.Engravings[1].EngravingType}({a.Engravings[1].EngravingValue})", $"{a.NegativeEngraving.EngravingType} ({a.NegativeEngraving.EngravingValue})", $"Bid: {a.MinimumBid}", $"Cost: {a.BuyNowPrice}");
-                    overallString.AppendLine(output2);
+                    string output = string.Format("{0,-30} {1,-60} {2,-60} {3,-60} {4,-15} {5,-15}", $"{a.AccessoryType} {a.Quality}", $"{a.Engravings[0].EngravingType} ({a.Engravings[0].EngravingValue})", $"{a.Engravings[1].EngravingType}({a.Engravings[1].EngravingValue})", $"{a.NegativeEngraving.EngravingType} ({a.NegativeEngraving.EngravingValue})", $"Bid: {a.MinimumBid}", $"Cost: {a.BuyNowPrice}");
+                    overallString.AppendLine(output);
                 }
+
+                overallString.AppendLine("\n");
             }
 
             return overallString.ToString();
@@ -437,26 +340,39 @@ namespace LostArkLogger
 
         private void loadLastEngravingsButton_Click(object sender, EventArgs e)
         {
-            string json = File.ReadAllText(@".\savedEngravings.json");
-            if (string.IsNullOrEmpty(json))
+            try
             {
-                return;
-            }
-            else
-            {
-                List<List<DesiredEngraving>> allDesiredEngravings = JsonSerializer.Deserialize<List<List<DesiredEngraving>>>(json);
-
-                foreach (var (desiredEngravings, k) in allDesiredEngravings.Select((value, k) => (value, k)))
+                string json = File.ReadAllText(@".\savedEngravings.json");
+                if (string.IsNullOrEmpty(json))
                 {
-                    foreach (var (desiredEngraving, j) in desiredEngravings.Select((value, j) => (value, j)))
-                    {
-                        ComboBox comboBox = ((ComboBox)Controls[$"engraving{j + 1}Choice"]);
-                        comboBox.SelectedIndex = comboBox.FindString(desiredEngraving.EngravingType.ToString());
-                        Controls[$"engraving{j + 1}Quantity_{k + 1}"].Text = desiredEngraving.Amount.ToString();
-                    }
+                    return;
                 }
+                else
+                {
+                    List<List<DesiredEngraving>> allDesiredEngravings = JsonSerializer.Deserialize<List<List<DesiredEngraving>>>(json);
+
+                    foreach (var (desiredEngravings, k) in allDesiredEngravings.Select((value, k) => (value, k)))
+                    {
+                        foreach (var (desiredEngraving, j) in desiredEngravings.Select((value, j) => (value, j)))
+                        {
+                            ComboBox comboBox = ((ComboBox)Controls[$"engraving{j + 1}Choice"]);
+                            comboBox.SelectedIndex = comboBox.FindString(desiredEngraving.EngravingType.ToString());
+                            Controls[$"engraving{j + 1}Quantity_{k + 1}"].Text = desiredEngraving.Amount.ToString();
+                        }
+                    }
+
+                }
+            }
+            catch
+            {
+
 
             }
+        }
+
+        private void MainWindow_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -128,7 +128,13 @@
             this.tabPage9 = new System.Windows.Forms.TabPage();
             this.cheapest95Q_textBox = new System.Windows.Forms.TextBox();
             this.reuse_checkBox = new System.Windows.Forms.CheckBox();
+            this.message_Label = new System.Windows.Forms.Label();
+            this.filterWorryingNeg_checkBox = new System.Windows.Forms.CheckBox();
+            this.filterZeroNegEngraving_checkBox = new System.Windows.Forms.CheckBox();
+            this.min_stat1 = new System.Windows.Forms.TextBox();
+            this.min_stat2 = new System.Windows.Forms.TextBox();
             this.label18 = new System.Windows.Forms.Label();
+            this.label19 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -485,9 +491,9 @@
             // 
             this.maxCost.Location = new System.Drawing.Point(329, 38);
             this.maxCost.Name = "maxCost";
-            this.maxCost.Size = new System.Drawing.Size(100, 23);
+            this.maxCost.Size = new System.Drawing.Size(70, 23);
             this.maxCost.TabIndex = 53;
-            this.maxCost.Text = "15001";
+            this.maxCost.Text = "99999";
             // 
             // engraving6Quantity_2
             // 
@@ -653,7 +659,7 @@
             // desiredStatType2
             // 
             this.desiredStatType2.FormattingEnabled = true;
-            this.desiredStatType2.Location = new System.Drawing.Point(240, 96);
+            this.desiredStatType2.Location = new System.Drawing.Point(240, 124);
             this.desiredStatType2.Name = "desiredStatType2";
             this.desiredStatType2.Size = new System.Drawing.Size(121, 23);
             this.desiredStatType2.TabIndex = 68;
@@ -670,7 +676,7 @@
             // label17
             // 
             this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(156, 99);
+            this.label17.Location = new System.Drawing.Point(156, 127);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(78, 15);
             this.label17.TabIndex = 70;
@@ -1090,21 +1096,85 @@
             this.reuse_checkBox.Text = "Use Stored Permutations";
             this.reuse_checkBox.UseVisualStyleBackColor = true;
             // 
+            // message_Label
+            // 
+            this.message_Label.AutoSize = true;
+            this.message_Label.Location = new System.Drawing.Point(15, 331);
+            this.message_Label.Name = "message_Label";
+            this.message_Label.Size = new System.Drawing.Size(44, 15);
+            this.message_Label.TabIndex = 94;
+            this.message_Label.Text = "Results";
+            // 
+            // filterWorryingNeg_checkBox
+            // 
+            this.filterWorryingNeg_checkBox.AutoSize = true;
+            this.filterWorryingNeg_checkBox.Checked = true;
+            this.filterWorryingNeg_checkBox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.filterWorryingNeg_checkBox.Location = new System.Drawing.Point(151, 253);
+            this.filterWorryingNeg_checkBox.Name = "filterWorryingNeg_checkBox";
+            this.filterWorryingNeg_checkBox.Size = new System.Drawing.Size(183, 19);
+            this.filterWorryingNeg_checkBox.TabIndex = 95;
+            this.filterWorryingNeg_checkBox.Text = "Filter >=5 Negative Engraving";
+            this.filterWorryingNeg_checkBox.UseVisualStyleBackColor = true;
+            // 
+            // filterZeroNegEngraving_checkBox
+            // 
+            this.filterZeroNegEngraving_checkBox.AutoSize = true;
+            this.filterZeroNegEngraving_checkBox.Checked = true;
+            this.filterZeroNegEngraving_checkBox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.filterZeroNegEngraving_checkBox.Location = new System.Drawing.Point(151, 278);
+            this.filterZeroNegEngraving_checkBox.Name = "filterZeroNegEngraving_checkBox";
+            this.filterZeroNegEngraving_checkBox.Size = new System.Drawing.Size(314, 19);
+            this.filterZeroNegEngraving_checkBox.TabIndex = 96;
+            this.filterZeroNegEngraving_checkBox.Text = "Ensure results have atleast one Negative Engraving at 0";
+            this.filterZeroNegEngraving_checkBox.UseVisualStyleBackColor = true;
+            // 
+            // min_stat1
+            // 
+            this.min_stat1.Location = new System.Drawing.Point(240, 91);
+            this.min_stat1.Name = "min_stat1";
+            this.min_stat1.Size = new System.Drawing.Size(70, 23);
+            this.min_stat1.TabIndex = 97;
+            this.min_stat1.Text = "0";
+            // 
+            // min_stat2
+            // 
+            this.min_stat2.Location = new System.Drawing.Point(240, 149);
+            this.min_stat2.Name = "min_stat2";
+            this.min_stat2.Size = new System.Drawing.Size(70, 23);
+            this.min_stat2.TabIndex = 98;
+            this.min_stat2.Text = "0";
+            // 
             // label18
             // 
             this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(15, 331);
+            this.label18.Location = new System.Drawing.Point(156, 96);
             this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(44, 15);
-            this.label18.TabIndex = 94;
-            this.label18.Text = "Results";
+            this.label18.Size = new System.Drawing.Size(75, 15);
+            this.label18.TabIndex = 99;
+            this.label18.Text = "Min Amount";
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Location = new System.Drawing.Point(156, 152);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(75, 15);
+            this.label19.TabIndex = 100;
+            this.label19.Text = "Min Amount";
             // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1373, 969);
+            this.Controls.Add(this.label19);
             this.Controls.Add(this.label18);
+            this.Controls.Add(this.min_stat2);
+            this.Controls.Add(this.min_stat1);
+            this.Controls.Add(this.filterZeroNegEngraving_checkBox);
+            this.Controls.Add(this.filterWorryingNeg_checkBox);
+            this.Controls.Add(this.message_Label);
             this.Controls.Add(this.reuse_checkBox);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.loadLastEngravingsButton);
@@ -1183,6 +1253,7 @@
             this.MaximizeBox = false;
             this.Name = "MainWindow";
             this.Text = "Lost Ark Logger";
+            this.Load += new System.EventHandler(this.MainWindow_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.tabControl1.ResumeLayout(false);
@@ -1310,5 +1381,14 @@
         private TextBox cheapest95Q_textBox;
         private CheckBox reuse_checkBox;
         private Label label18;
+        private TabPage tabPage10;
+        private TextBox highestSplit_textBox;
+        private Label message_Label;
+        private CheckBox filterWorryingNeg_checkBox;
+        private CheckBox filterZeroNegEngraving_checkBox;
+        private TextBox textBox1;
+        private TextBox min_stat1;
+        private TextBox min_stat2;
+        private Label label19;
     }
 }

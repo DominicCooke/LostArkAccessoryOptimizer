@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MachinaNet6", "MachinaNet6\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LostArkLoggerTests", "LostArkLoggerTests\LostArkLoggerTests.csproj", "{520F33A0-5E5C-4899-85CF-91542E0D1895}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AccessoryOptimizer", "AccessoryOptimizer\AccessoryOptimizer.csproj", "{47502DF6-62C6-443E-BC45-418B96A1E4AA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AccessoryOptimizer", "AccessoryOptimizer\AccessoryOptimizer.csproj", "{47502DF6-62C6-443E-BC45-418B96A1E4AA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AccessoryParser", "AccessoryParser\AccessoryParser.csproj", "{AE0F65D2-6068-49FD-B6B2-BAEB9AF1E5C9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{47502DF6-62C6-443E-BC45-418B96A1E4AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{47502DF6-62C6-443E-BC45-418B96A1E4AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{47502DF6-62C6-443E-BC45-418B96A1E4AA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AE0F65D2-6068-49FD-B6B2-BAEB9AF1E5C9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AE0F65D2-6068-49FD-B6B2-BAEB9AF1E5C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AE0F65D2-6068-49FD-B6B2-BAEB9AF1E5C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AE0F65D2-6068-49FD-B6B2-BAEB9AF1E5C9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

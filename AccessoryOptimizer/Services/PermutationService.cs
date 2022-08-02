@@ -21,24 +21,31 @@ namespace AccessoryOptimizer.Services
         public void StoreAccessories()
         {
             string json = JsonSerializer.Serialize(PSO.CurrentAccessories, new JsonSerializerOptions() { IncludeFields = true });
-            File.WriteAllText(@"C:\Users\Dominic\Downloads\data.json", json);
+            File.WriteAllText(@".\data.json", json);
         }
 
         public bool LoadAccessories()
         {
-            string json = File.ReadAllText(@"C:\Users\Dominic\Downloads\data.json");
-            if (string.IsNullOrEmpty(json))
+            try
+            {
+                string json = File.ReadAllText(@".\data.json");
+                if (string.IsNullOrEmpty(json))
+                {
+                    return false;
+                }
+                else
+                {
+                    PSO.CurrentAccessories = JsonSerializer.Deserialize<List<Accessory>>(json);
+                    return PSO.CurrentAccessories?.Count() > 0;
+                }
+            }
+            catch
             {
                 return false;
             }
-            else
-            {
-                PSO.CurrentAccessories = JsonSerializer.Deserialize<List<Accessory>>(json);
-                return PSO.CurrentAccessories?.Count() > 0;
-            }
         }
 
-        public List<PermutationDisplay> Process(List<List<DesiredEngraving>> allDesiredEngravings, int maxPrice, bool useStoredPermutations = false)
+        public List<PermutationDisplay> Process(List<List<DesiredEngraving>> allDesiredEngravings, int maxPrice, bool useStoredPermutations = false, bool filterWorryingEngraving = true, bool filterEngravingAtZero = true)
         {
             if (useStoredPermutations && _permutationDisplays.Count > 0)
             {
@@ -53,15 +60,23 @@ namespace AccessoryOptimizer.Services
 
                 List<Permutation> permutationsThatMatchesDesiredEngravings = GetPermutations(necks, ears, rings, allDesiredEngravings);
 
-                _permutationDisplays = permutationsThatMatchesDesiredEngravings.Select(p => new PermutationDisplay(p)).Where(e => !e.IsThereWorryingNegativeEngraving()).ToList();
+                _permutationDisplays = permutationsThatMatchesDesiredEngravings.Select(p => new PermutationDisplay(p)).ToList();
+
+                if (filterWorryingEngraving)
+                {
+                    _permutationDisplays = _permutationDisplays.Where(e => !e.IsThereWorryingNegativeEngraving()).ToList();
+                }
+
+                if (filterEngravingAtZero)
+                {
+                    _permutationDisplays = _permutationDisplays.Where(e => e.HasEngravingAtZero()).ToList();
+                }
 
                 return _permutationDisplays;
             }
 
             return new();
         }
-
-
 
         private bool DoesPermutationMatchDesiredEngravings(List<DesiredEngraving> desiredEngravings, Permutation permutation)
         {
@@ -224,8 +239,8 @@ namespace AccessoryOptimizer.Services
 
         public static class PSO
         {
-            public static Stat_Type DesiredStatType1 { get; set; }
-            public static Stat_Type DesiredStatType2 { get; set; }
+            public static Stat_Type? DesiredStatType1 { get; set; }
+            public static Stat_Type? DesiredStatType2 { get; set; }
 
             public static List<Accessory> CurrentAccessories = new();
 
@@ -256,6 +271,8 @@ namespace AccessoryOptimizer.Services
                 [193] = "Barrage Enhancement",
                 [194] = "True Courage",
                 [195] = "Desperate Salvation",
+                [200] = "Empress's Grace",
+                [201] = "Order of the Emperor",
                 [202] = "Master of Escape",
                 [224] = "Combat Readiness",
                 [225] = "Lone Knight",
