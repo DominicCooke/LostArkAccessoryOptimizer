@@ -1,6 +1,7 @@
 ﻿using AccessoryOptimizer.Models;
 using AccessoryOptimizer.Services;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Text;
 using System.Text.Json;
 using static AccessoryOptimizer.Services.PermutationService;
@@ -59,10 +60,10 @@ namespace LostArkLogger
         }
         #endregion
 
-
+        #region My Stuff
         private void clearButton_Click(object sender, EventArgs e)
         {
-            _permutationService.ClearAccessories();
+            ClearAccessories();
             UpdateCountText();
         }
 
@@ -255,12 +256,12 @@ namespace LostArkLogger
 
         private void saveButton_Click(object sender, EventArgs e)
         {
-            _permutationService.StoreAccessories();
+            StoreAccessories();
         }
 
         private void loadButton_Click(object sender, EventArgs e)
         {
-            _permutationService.LoadAccessories();
+            LoadAccessories();
             UpdateCountText();
         }
 
@@ -370,9 +371,38 @@ namespace LostArkLogger
             }
         }
 
-        private void MainWindow_Load(object sender, EventArgs e)
+        private void ClearAccessories()
         {
-
+            PSO.CurrentAccessories = new();
         }
+
+        private void StoreAccessories()
+        {
+            string json = JsonSerializer.Serialize(PSO.CurrentAccessories, new JsonSerializerOptions() { IncludeFields = true });
+            File.WriteAllText(@".\data.json", json);
+        }
+
+        private bool LoadAccessories()
+        {
+            try
+            {
+                string json = File.ReadAllText(@".\data.json");
+                if (string.IsNullOrEmpty(json))
+                {
+                    return false;
+                }
+                else
+                {
+                    PSO.CurrentAccessories = JsonSerializer.Deserialize<List<Accessory>>(json);
+                    return PSO.CurrentAccessories?.Count() > 0;
+                }
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        #endregion
     }
 }

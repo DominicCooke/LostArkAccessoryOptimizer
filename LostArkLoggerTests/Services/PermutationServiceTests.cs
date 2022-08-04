@@ -11,27 +11,64 @@ namespace LostArkLoggerTests.Services
         {
             // arrange
             PSO.CurrentAccessories = GetSuccessfulPermutationTestData();
+            var permutationService = new PermutationService
+            {
+                _necklaces = PSO.CurrentAccessories.Where(a => a.AccessoryType == AccessoryType.Necklace).ToList(),
+                _earrings = PSO.CurrentAccessories.Where(a => a.AccessoryType == AccessoryType.Earring).ToList(),
+                _rings = PSO.CurrentAccessories.Where(a => a.AccessoryType == AccessoryType.Ring).ToList()
+            };
 
             // act
-            var permutationService = new PermutationService();
-            var successfulPermutations = permutationService.Process(new List<List<DesiredEngraving>>() { GetDesiredEngravings() }, 20000);
+            var successfulPermutations = permutationService.Process(new List<List<DesiredEngraving>>() { GetDesiredEngravings() }, 20000, filterWorryingEngraving: false, filterEngravingAtZero: false);
 
             // assert
             Assert.That((successfulPermutations.Count == 1));
         }
 
         [Test]
-        public void PermutationServiceTests_DataThatHasAtleastOneSuccessfulPermutationAndNoise_AListThatContainsAtleast1Permutation()
+        public void PermutationServiceTests_DataThatHas8SuccessfulPermutation_AListThatContains8Permutations()
         {
             // arrange
             List<Accessory> accessories = GetSuccessfulPermutationTestData();
-            accessories.AddRange(GetTestData());
+            
+            for (int i = 0; i < 500; i++)
+            {
+                accessories.AddRange(GetTestData());
+            }
 
             PSO.CurrentAccessories = accessories;
+            var permutationService = new PermutationService
+            {
+                _necklaces = PSO.CurrentAccessories.Where(a => a.AccessoryType == AccessoryType.Necklace).ToList(),
+                _earrings = PSO.CurrentAccessories.Where(a => a.AccessoryType == AccessoryType.Earring).ToList(),
+                _rings = PSO.CurrentAccessories.Where(a => a.AccessoryType == AccessoryType.Ring).ToList()
+            };
 
             // act
-            var permutationService = new PermutationService();
-            var successfulPermutations = permutationService.Process(new List<List<DesiredEngraving>>() { GetDesiredEngravings() }, 20000);
+            var successfulPermutations = permutationService.Process(new List<List<DesiredEngraving>>() { GetDesiredEngravings() }, 20000, filterWorryingEngraving: false, filterEngravingAtZero: false);
+
+            // assert
+            Assert.That(successfulPermutations.Count == 8);
+        }
+
+        [Test]
+        public void PermutationServiceV2Tests_DataThatHas8SuccessfulPermutation_AListThatContains8Permutations()
+        {
+            // arrange
+            List<Accessory> accessories = GetSuccessfulPermutationTestData();
+
+            for (int i = 0; i < 20; i++)
+            {
+                accessories.AddRange(GetTestData());
+            }
+
+            // act
+            var permutationService = new PermutationServiceV2();
+            var successfulPermutations = permutationService.Process(
+                accessories.Where(a => a.AccessoryType == AccessoryType.Necklace).ToList(),
+                accessories.Where(a => a.AccessoryType == AccessoryType.Earring).ToList(),
+                accessories.Where(a => a.AccessoryType == AccessoryType.Ring).ToList(),
+                new List<List<DesiredEngraving>>() { GetDesiredEngravings() });
 
             // assert
             Assert.That(successfulPermutations.Count == 8);
@@ -53,7 +90,7 @@ namespace LostArkLoggerTests.Services
         {
             return new List<Accessory>()
             {
-                new Accessory(AccessoryType.Necklace, 50, 100,
+                new Accessory(AccessoryType.Necklace, AccessoryRank.Relic, new Random().Next(100),50, 100,
                     new List<Engraving>()
                     {
                         new Engraving(EngravingType.Combat_Readiness, 5),
@@ -61,7 +98,7 @@ namespace LostArkLoggerTests.Services
                     },
                     new Engraving(EngravingType.Atk_Power_Reduction, -1),
                     new Stats(AccessoryType.Necklace, Stat_Type.Specialization, Stat_Type.Crit)),
-                new Accessory(AccessoryType.Necklace, 50, 100,
+                new Accessory(AccessoryType.Necklace, AccessoryRank.Relic, new Random().Next(100), 50, 5500,
                     new List<Engraving>()
                     {
                         new Engraving(EngravingType.Spirit_Absorption, 5),
@@ -69,7 +106,7 @@ namespace LostArkLoggerTests.Services
                     },
                     new Engraving(EngravingType.Atk_Power_Reduction, -1),
                     new Stats(AccessoryType.Necklace, Stat_Type.Specialization, Stat_Type.Crit)),
-                new Accessory(AccessoryType.Earring, 50, 100,
+                new Accessory(AccessoryType.Earring, AccessoryRank.Relic, new Random().Next(100),50, 100,
                     new List<Engraving>()
                     {
                         new Engraving(EngravingType.Barricade, 5),
@@ -77,7 +114,7 @@ namespace LostArkLoggerTests.Services
                     },
                     new Engraving(EngravingType.Atk_Speed_Reduction, -1),
                     new Stats(AccessoryType.Earring, Stat_Type.Specialization)),
-                new Accessory(AccessoryType.Earring, 50, 100,
+                new Accessory(AccessoryType.Earring, AccessoryRank.Relic, new Random().Next(100),50, 100,
                     new List<Engraving>()
                     {
                         new Engraving(EngravingType.Stabilized_Status, 5),
@@ -85,7 +122,7 @@ namespace LostArkLoggerTests.Services
                     },
                     new Engraving(EngravingType.Move_Speed_Reduction, -1),
                     new Stats(AccessoryType.Earring, Stat_Type.Specialization)),
-                new Accessory(AccessoryType.Ring, 50, 100,
+                new Accessory(AccessoryType.Ring, AccessoryRank.Relic, new Random().Next(100),50, 100,
                     new List<Engraving>()
                     {
                         new Engraving(EngravingType.Stabilized_Status, 5),
@@ -93,7 +130,7 @@ namespace LostArkLoggerTests.Services
                     },
                     new Engraving(EngravingType.Defence_Reduction, -1),
                     new Stats(AccessoryType.Ring, Stat_Type.Specialization)),
-                new Accessory(AccessoryType.Ring, 50, 100,
+                new Accessory(AccessoryType.Ring, AccessoryRank.Relic, new Random().Next(100),50, 100,
                     new List<Engraving>()
                     {
                         new Engraving(EngravingType.Stabilized_Status, 5),
@@ -125,7 +162,7 @@ namespace LostArkLoggerTests.Services
         {
             return new List<Accessory>()
             {
-                new Accessory(AccessoryType.Necklace, 50, 100,
+                new Accessory(AccessoryType.Necklace, AccessoryRank.Relic, 50,50, 100,
                     new List<Engraving>()
                     {
                         new Engraving(EngravingType.Barricade, 5),
@@ -133,7 +170,7 @@ namespace LostArkLoggerTests.Services
                     },
                     new Engraving(EngravingType.Atk_Power_Reduction, -1),
                     new Stats(AccessoryType.Necklace, Stat_Type.Specialization, Stat_Type.Crit)),
-                new Accessory(AccessoryType.Necklace, 50, 100,
+                new Accessory(AccessoryType.Necklace, AccessoryRank.Relic, 50,50, 100,
                     new List<Engraving>()
                     {
                         new Engraving(EngravingType.Adrenaline, 5),
@@ -141,7 +178,7 @@ namespace LostArkLoggerTests.Services
                     },
                     new Engraving(EngravingType.Atk_Power_Reduction, -1),
                     new Stats(AccessoryType.Necklace, Stat_Type.Specialization, Stat_Type.Crit)),
-                new Accessory(AccessoryType.Earring, 50, 100,
+                new Accessory(AccessoryType.Earring, AccessoryRank.Relic, 50,50, 100,
                     new List<Engraving>()
                     {
                         new Engraving(EngravingType.Spirit_Absorption, 5),
@@ -149,7 +186,7 @@ namespace LostArkLoggerTests.Services
                     },
                     new Engraving(EngravingType.Atk_Speed_Reduction, -1),
                     new Stats(AccessoryType.Earring, Stat_Type.Specialization)),
-                new Accessory(AccessoryType.Earring, 50, 100,
+                new Accessory(AccessoryType.Earring, AccessoryRank.Relic, 50,50, 100,
                     new List<Engraving>()
                     {
                         new Engraving(EngravingType.Stabilized_Status, 5),
@@ -157,7 +194,7 @@ namespace LostArkLoggerTests.Services
                     },
                     new Engraving(EngravingType.Move_Speed_Reduction, -1),
                     new Stats(AccessoryType.Earring, Stat_Type.Specialization)),
-                new Accessory(AccessoryType.Ring, 50, 100,
+                new Accessory(AccessoryType.Ring, AccessoryRank.Relic, 50,50, 100,
                     new List<Engraving>()
                     {
                         new Engraving(EngravingType.Grudge, 5),
@@ -165,7 +202,7 @@ namespace LostArkLoggerTests.Services
                     },
                     new Engraving(EngravingType.Defence_Reduction, -1),
                     new Stats(AccessoryType.Ring, Stat_Type.Specialization)),
-                new Accessory(AccessoryType.Ring, 50, 100,
+                new Accessory(AccessoryType.Ring, AccessoryRank.Relic, 50,50, 100,
                     new List<Engraving>()
                     {
                         new Engraving(EngravingType.Stabilized_Status, 5),
@@ -173,7 +210,7 @@ namespace LostArkLoggerTests.Services
                     },
                     new Engraving(EngravingType.Defence_Reduction, -1),
                     new Stats(AccessoryType.Ring, Stat_Type.Specialization)),
-                new Accessory(AccessoryType.Necklace, 50, 100,
+                new Accessory(AccessoryType.Necklace, AccessoryRank.Relic, 50,50, 100,
                     new List<Engraving>()
                     {
                         new Engraving(EngravingType.Grudge, 5),
@@ -181,7 +218,7 @@ namespace LostArkLoggerTests.Services
                     },
                     new Engraving(EngravingType.Atk_Power_Reduction, -1),
                     new Stats(AccessoryType.Necklace, Stat_Type.Specialization, Stat_Type.Crit)),
-                new Accessory(AccessoryType.Necklace, 50, 100,
+                new Accessory(AccessoryType.Necklace, AccessoryRank.Relic, 50,50, 100,
                     new List<Engraving>()
                     {
                         new Engraving(EngravingType.Stabilized_Status, 5),
@@ -189,7 +226,7 @@ namespace LostArkLoggerTests.Services
                     },
                     new Engraving(EngravingType.Atk_Power_Reduction, -1),
                     new Stats(AccessoryType.Necklace, Stat_Type.Specialization, Stat_Type.Crit)),
-                new Accessory(AccessoryType.Earring, 50, 100,
+                new Accessory(AccessoryType.Earring, AccessoryRank.Relic, 50,50, 100,
                     new List<Engraving>()
                     {
                         new Engraving(EngravingType.Adrenaline, 5),
@@ -197,7 +234,7 @@ namespace LostArkLoggerTests.Services
                     },
                     new Engraving(EngravingType.Atk_Speed_Reduction, -1),
                     new Stats(AccessoryType.Earring, Stat_Type.Specialization)),
-                new Accessory(AccessoryType.Earring, 50, 100,
+                new Accessory(AccessoryType.Earring,AccessoryRank.Relic, 50, 50, 100,
                     new List<Engraving>()
                     {
                         new Engraving(EngravingType.Stabilized_Status, 5),
@@ -205,7 +242,7 @@ namespace LostArkLoggerTests.Services
                     },
                     new Engraving(EngravingType.Move_Speed_Reduction, -1),
                     new Stats(AccessoryType.Earring, Stat_Type.Specialization)),
-                new Accessory(AccessoryType.Ring, 50, 100,
+                new Accessory(AccessoryType.Ring, AccessoryRank.Relic, 50,50, 100,
                     new List<Engraving>()
                     {
                         new Engraving(EngravingType.Combat_Readiness, 5),
@@ -213,7 +250,7 @@ namespace LostArkLoggerTests.Services
                     },
                     new Engraving(EngravingType.Defence_Reduction, -1),
                     new Stats(AccessoryType.Ring, Stat_Type.Specialization)),
-                new Accessory(AccessoryType.Ring, 50, 100,
+                new Accessory(AccessoryType.Ring,AccessoryRank.Relic, 50, 50, 100,
                     new List<Engraving>()
                     {
                         new Engraving(EngravingType.Combat_Readiness, 5),
@@ -221,7 +258,7 @@ namespace LostArkLoggerTests.Services
                     },
                     new Engraving(EngravingType.Defence_Reduction, -1),
                     new Stats(AccessoryType.Ring, Stat_Type.Specialization)),
-                new Accessory(AccessoryType.Necklace, 50, 100,
+                new Accessory(AccessoryType.Necklace,AccessoryRank.Relic, 50, 50, 100,
                     new List<Engraving>()
                     {
                         new Engraving(EngravingType.Combat_Readiness, 5),
@@ -229,7 +266,7 @@ namespace LostArkLoggerTests.Services
                     },
                     new Engraving(EngravingType.Atk_Power_Reduction, -1),
                     new Stats(AccessoryType.Necklace, Stat_Type.Specialization, Stat_Type.Crit)),
-                new Accessory(AccessoryType.Necklace, 50, 100,
+                new Accessory(AccessoryType.Necklace,AccessoryRank.Relic, 50, 50, 100,
                     new List<Engraving>()
                     {
                         new Engraving(EngravingType.Barricade, 5),
@@ -237,7 +274,7 @@ namespace LostArkLoggerTests.Services
                     },
                     new Engraving(EngravingType.Atk_Power_Reduction, -1),
                     new Stats(AccessoryType.Necklace, Stat_Type.Specialization, Stat_Type.Crit)),
-                new Accessory(AccessoryType.Earring, 50, 100,
+                new Accessory(AccessoryType.Earring, AccessoryRank.Relic, 50,50, 100,
                     new List<Engraving>()
                     {
                         new Engraving(EngravingType.Grudge, 5),
@@ -245,7 +282,7 @@ namespace LostArkLoggerTests.Services
                     },
                     new Engraving(EngravingType.Atk_Speed_Reduction, -1),
                     new Stats(AccessoryType.Earring, Stat_Type.Specialization)),
-                new Accessory(AccessoryType.Earring, 50, 100,
+                new Accessory(AccessoryType.Earring,AccessoryRank.Relic, 50, 50, 100,
                     new List<Engraving>()
                     {
                         new Engraving(EngravingType.Stabilized_Status, 5),
@@ -253,7 +290,7 @@ namespace LostArkLoggerTests.Services
                     },
                     new Engraving(EngravingType.Move_Speed_Reduction, -1),
                     new Stats(AccessoryType.Earring, Stat_Type.Specialization)),
-                new Accessory(AccessoryType.Ring, 50, 100,
+                new Accessory(AccessoryType.Ring,AccessoryRank.Relic, 50, 50, 100,
                     new List<Engraving>()
                     {
                         new Engraving(EngravingType.Spirit_Absorption, 5),
@@ -261,7 +298,7 @@ namespace LostArkLoggerTests.Services
                     },
                     new Engraving(EngravingType.Defence_Reduction, -1),
                     new Stats(AccessoryType.Ring, Stat_Type.Specialization)),
-                new Accessory(AccessoryType.Ring, 50, 100,
+                new Accessory(AccessoryType.Ring, AccessoryRank.Relic, 50,50, 100,
                     new List<Engraving>()
                     {
                         new Engraving(EngravingType.Combat_Readiness, 5),

@@ -135,6 +135,8 @@
             this.min_stat2 = new System.Windows.Forms.TextBox();
             this.label18 = new System.Windows.Forms.Label();
             this.label19 = new System.Windows.Forms.Label();
+            this.sniffModeCheckbox = new System.Windows.Forms.CheckBox();
+            this.label20 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -922,6 +924,7 @@
             this.cheapest_Textbox.Location = new System.Drawing.Point(-4, -9);
             this.cheapest_Textbox.Multiline = true;
             this.cheapest_Textbox.Name = "cheapest_Textbox";
+            this.cheapest_Textbox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.cheapest_Textbox.Size = new System.Drawing.Size(1349, 591);
             this.cheapest_Textbox.TabIndex = 92;
             // 
@@ -943,6 +946,7 @@
             this.highestStat1_textBox.Location = new System.Drawing.Point(-4, -9);
             this.highestStat1_textBox.Multiline = true;
             this.highestStat1_textBox.Name = "highestStat1_textBox";
+            this.highestStat1_textBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.highestStat1_textBox.Size = new System.Drawing.Size(1349, 591);
             this.highestStat1_textBox.TabIndex = 92;
             // 
@@ -963,6 +967,7 @@
             this.highestStat2_textBox.Location = new System.Drawing.Point(-4, -9);
             this.highestStat2_textBox.Multiline = true;
             this.highestStat2_textBox.Name = "highestStat2_textBox";
+            this.highestStat2_textBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.highestStat2_textBox.Size = new System.Drawing.Size(1349, 591);
             this.highestStat2_textBox.TabIndex = 92;
             // 
@@ -983,6 +988,7 @@
             this.cheapest500HighStat1_textBox.Location = new System.Drawing.Point(-4, -9);
             this.cheapest500HighStat1_textBox.Multiline = true;
             this.cheapest500HighStat1_textBox.Name = "cheapest500HighStat1_textBox";
+            this.cheapest500HighStat1_textBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.cheapest500HighStat1_textBox.Size = new System.Drawing.Size(1349, 591);
             this.cheapest500HighStat1_textBox.TabIndex = 92;
             // 
@@ -1003,6 +1009,7 @@
             this.cheapest500HighStat2_textBox.Location = new System.Drawing.Point(-4, -9);
             this.cheapest500HighStat2_textBox.Multiline = true;
             this.cheapest500HighStat2_textBox.Name = "cheapest500HighStat2_textBox";
+            this.cheapest500HighStat2_textBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.cheapest500HighStat2_textBox.Size = new System.Drawing.Size(1349, 591);
             this.cheapest500HighStat2_textBox.TabIndex = 92;
             // 
@@ -1023,6 +1030,7 @@
             this.cheapestWithRelicNeck_textBox.Location = new System.Drawing.Point(-4, -9);
             this.cheapestWithRelicNeck_textBox.Multiline = true;
             this.cheapestWithRelicNeck_textBox.Name = "cheapestWithRelicNeck_textBox";
+            this.cheapestWithRelicNeck_textBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.cheapestWithRelicNeck_textBox.Size = new System.Drawing.Size(1349, 591);
             this.cheapestWithRelicNeck_textBox.TabIndex = 92;
             // 
@@ -1043,6 +1051,7 @@
             this.cheapest80Q_textBox.Location = new System.Drawing.Point(-4, -9);
             this.cheapest80Q_textBox.Multiline = true;
             this.cheapest80Q_textBox.Name = "cheapest80Q_textBox";
+            this.cheapest80Q_textBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.cheapest80Q_textBox.Size = new System.Drawing.Size(1349, 591);
             this.cheapest80Q_textBox.TabIndex = 92;
             // 
@@ -1063,6 +1072,7 @@
             this.cheapest90Q_textBox.Location = new System.Drawing.Point(-4, -9);
             this.cheapest90Q_textBox.Multiline = true;
             this.cheapest90Q_textBox.Name = "cheapest90Q_textBox";
+            this.cheapest90Q_textBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.cheapest90Q_textBox.Size = new System.Drawing.Size(1349, 591);
             this.cheapest90Q_textBox.TabIndex = 92;
             // 
@@ -1083,6 +1093,7 @@
             this.cheapest95Q_textBox.Location = new System.Drawing.Point(-4, -9);
             this.cheapest95Q_textBox.Multiline = true;
             this.cheapest95Q_textBox.Name = "cheapest95Q_textBox";
+            this.cheapest95Q_textBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.cheapest95Q_textBox.Size = new System.Drawing.Size(1349, 591);
             this.cheapest95Q_textBox.TabIndex = 92;
             // 
@@ -1163,11 +1174,32 @@
             this.label19.TabIndex = 100;
             this.label19.Text = "Min Amount";
             // 
+            // sniffModeCheckbox
+            // 
+            this.sniffModeCheckbox.AutoSize = true;
+            this.sniffModeCheckbox.Location = new System.Drawing.Point(15, 228);
+            this.sniffModeCheckbox.Name = "sniffModeCheckbox";
+            this.sniffModeCheckbox.Size = new System.Drawing.Size(78, 19);
+            this.sniffModeCheckbox.TabIndex = 101;
+            this.sniffModeCheckbox.Text = "Winpcap?";
+            this.sniffModeCheckbox.UseVisualStyleBackColor = true;
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Location = new System.Drawing.Point(15, 250);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(103, 15);
+            this.label20.TabIndex = 102;
+            this.label20.Text = "Parser by Shalzuth";
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1373, 969);
+            this.Controls.Add(this.label20);
+            this.Controls.Add(this.sniffModeCheckbox);
             this.Controls.Add(this.label19);
             this.Controls.Add(this.label18);
             this.Controls.Add(this.min_stat2);
@@ -1253,7 +1285,6 @@
             this.MaximizeBox = false;
             this.Name = "MainWindow";
             this.Text = "Lost Ark Logger";
-            this.Load += new System.EventHandler(this.MainWindow_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.tabControl1.ResumeLayout(false);
@@ -1390,5 +1421,9 @@
         private TextBox min_stat1;
         private TextBox min_stat2;
         private Label label19;
+        private CheckBox sniffModeCheckbox;
+        private LinkLabel linkLabel1;
+        private Label label20;
+        private Label label21;
     }
 }

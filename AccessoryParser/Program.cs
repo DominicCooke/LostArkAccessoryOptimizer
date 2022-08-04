@@ -5,13 +5,13 @@ Main();
 
 void Main()
 {
-    bool workOutNecklace = false;
+    bool workOutNecklace = true;
     if(workOutNecklace)
     {
         WorkoutNecklace();
     }
 
-    bool workOutEarring = true;
+    bool workOutEarring = false;
 
     if(workOutEarring)
     {
@@ -24,23 +24,23 @@ void WorkoutNecklace()
     byte[] necklaceBytes = GetNecklaceData();
     necklaceBytes = RemoveFromByteArray(necklaceBytes, 14);
 
-    byte[] buyout = GetValue(35000);
-    byte[] bid = GetValue(26250);
+    byte[] buyout = GetValue(249999);
+    byte[] bid = GetValue(199999);
 
-    byte[] engraving1 = GetValue((int)EngravingType.Adrenaline);
+    byte[] engraving1 = GetValue((int)EngravingType.Demonic_Impulse);
     byte[] engraving1Quantity = GetValue(5);
 
-    byte[] engraving2 = GetValue((int)EngravingType.Hit_Master);
+    byte[] engraving2 = GetValue((int)EngravingType.Grudge);
     byte[] engraving2Quantity = GetValue(3);
 
     byte[] statType1 = GetValue((int)Stat_Type.Crit);
-    byte[] statType1Quantity = GetValue(475);
+    byte[] statType1Quantity = GetValue(498);
 
     byte[] statType2 = GetValue((int)Stat_Type.Specialization);
-    byte[] statType2Quantity = GetValue(500);
+    byte[] statType2Quantity = GetValue(454);
 
-    byte[] negativeEngravingType = GetValue((int)EngravingType.Atk_Power_Reduction);
-    byte[] negativeEngravingQuantity = GetValue(3);
+    byte[] negativeEngravingType = GetValue((int)EngravingType.Move_Speed_Reduction);
+    byte[] negativeEngravingQuantity = GetValue(2);
 
     byte[] itemId = GetValue(213300030);
 
@@ -81,24 +81,24 @@ void WorkoutNecklace()
 void WorkoutEarring()
 {
     byte[] earringBytes = GetEarringData();
-    //earringBytes = RemoveFromByteArray(earringBytes, 14);
+    earringBytes = RemoveFromByteArray(earringBytes, 14);
 
-    byte[] buyout = GetValue(100);
-    byte[] bid = GetValue(50);
+    byte[] buyout = GetValue(45000);
+    byte[] bid = GetValue(35000);
 
-    byte[] engraving1 = GetValue((int)EngravingType.Sight_Focus);
-    byte[] engraving1Quantity = GetValue(5);
+    byte[] engraving1 = GetValue((int)EngravingType.Demonic_Impulse);
+    byte[] engraving1Quantity = GetValue(3);
 
-    byte[] engraving2 = GetValue((int)EngravingType.Hit_Master);
+    byte[] engraving2 = GetValue((int)EngravingType.Grudge);
     byte[] engraving2Quantity = GetValue(3);
 
-    byte[] statType1 = GetValue((int)Stat_Type.Swiftness);
-    byte[] statType1Quantity = GetValue(295);
+    byte[] statType1 = GetValue((int)Stat_Type.Specialization);
+    byte[] statType1Quantity = GetValue(191);
 
-    byte[] negativeEngravingType = GetValue((int)EngravingType.Move_Speed_Reduction);
-    byte[] negativeEngravingQuantity = GetValue(2);
+    byte[] negativeEngravingType = GetValue((int)EngravingType.Defence_Reduction);
+    byte[] negativeEngravingQuantity = GetValue(3);
 
-    byte[] itemId = GetValue(213300041);
+    byte[] itemId = GetValue(213300042);
 
     var buyout_byteToStart = Search(earringBytes, buyout.Reverse().ToArray());
     Console.WriteLine($"Buyout: {buyout_byteToStart}");
@@ -195,10 +195,10 @@ long GetInt64Value(byte[] bytes)
 
 byte[] GetNecklaceData()
 {
-    return new byte[] { 0, 0, 0, 0, 20, 50, 5, 0, 1, 0, 0, 0, 1, 0, 168, 97, 0, 0, 0, 0, 0, 0, 226, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 94, 244, 242, 3, 0, 0, 0, 22, 62, 179, 182, 12, 0, 0, 28, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 31, 24, 108, 23, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5, 0, 1, 0, 0, 0, 110, 0, 0, 0, 16, 0, 0, 0, 2, 244, 1, 0, 0, 244, 1, 0, 0, 144, 1, 0, 0, 1, 1, 0, 0, 1, 0, 0, 0, 110, 0, 0, 0, 15, 0, 0, 0, 2, 244, 1, 0, 0, 219, 1, 0, 0, 144, 1, 0, 0, 1, 1, 0, 0, 1, 0, 0, 0, 105, 0, 0, 0, 32, 3, 0, 0, 3, 3, 0, 0, 0, 3, 0, 0, 0, 1, 0, 0, 0, 3, 3, 0, 0, 1, 0, 0, 0, 105, 0, 0, 0, 43, 1, 0, 0, 3, 5, 0, 0, 0, 5, 0, 0, 0, 5, 0, 0, 0, 2, 3, 0, 0, 1, 0, 0, 0, 105, 0, 0, 0, 41, 1, 0, 0, 3, 3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0, 1, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 230, 119, 157, 10, 199, 241, 0, 0, 0, 248, 235, 1, 0, 0, 0, 0, 0, 184, 136, 0, 0, 0, 0, 0, 0, 1, 245, 253, 42, 5, 0, 0, 0, 0, 168, 97, 0, 0, 0, 0, 0, 0, 0 };
+    return new byte[] { 1, 0, 0, 0, 20, 50, 5, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 180, 130, 190, 4, 0, 0, 32, 28, 62, 179, 182, 12, 0, 0, 65, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 31, 24, 108, 23, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5, 0, 16, 0, 0, 0, 144, 1, 0, 0, 2, 110, 0, 0, 0, 1, 1, 0, 0, 1, 0, 0, 0, 198, 1, 0, 0, 244, 1, 0, 0, 15, 0, 0, 0, 144, 1, 0, 0, 2, 110, 0, 0, 0, 1, 1, 0, 0, 1, 0, 0, 0, 242, 1, 0, 0, 244, 1, 0, 0, 35, 3, 0, 0, 1, 0, 0, 0, 3, 105, 0, 0, 0, 3, 8, 0, 0, 1, 0, 0, 0, 2, 0, 0, 0, 3, 0, 0, 0, 25, 1, 0, 0, 5, 0, 0, 0, 3, 105, 0, 0, 0, 2, 8, 147, 1, 1, 0, 0, 0, 5, 0, 0, 0, 5, 0, 0, 0, 118, 0, 0, 0, 3, 0, 0, 0, 3, 105, 0, 0, 0, 1, 8, 0, 0, 1, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 63, 13, 3, 0, 0, 0, 0, 0, 0, 63, 13, 3, 0, 0, 0, 0, 0, 0, 16, 39, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 143, 208, 3, 0, 0, 0, 0, 0, 230, 135, 196, 5, 177, 102, 0, 0, 173, 189, 81, 5, 0, 0, 0, 0 };
 }
 
 byte[] GetEarringData()
 {
-    return new byte[] { 50, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 56, 232, 144, 3, 0, 0, 32, 26, 73, 179, 182, 12, 0, 0, 2, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 31, 24, 108, 23, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 1, 0, 0, 0, 54, 1, 0, 0, 18, 0, 0, 0, 2, 44, 1, 0, 0, 39, 1, 0, 0, 240, 0, 0, 0, 1, 1, 0, 0, 1, 0, 0, 0, 105, 0, 0, 0, 35, 3, 0, 0, 3, 3, 0, 0, 0, 2, 0, 0, 0, 1, 0, 0, 0, 3, 3, 0, 0, 1, 0, 0, 0, 105, 0, 0, 0, 42, 1, 0, 0, 3, 5, 0, 0, 0, 5, 0, 0, 0, 5, 0, 0, 0, 2, 3, 0, 0, 1, 0, 0, 0, 105, 0, 0, 0, 41, 1, 0, 0, 3, 3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0, 1, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 230, 135, 1, 134, 230, 244, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 100, 0, 0, 0, 0, 0, 0, 0, 1, 210, 232, 63, 5, 0, 0, 0, 0, 50, 0, 0, 0, 0, 0, 0, 0, 0 };
+    return new byte[] { 1, 0, 0, 0, 20, 50, 5, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 167, 95, 40, 2, 0, 0, 64, 60, 74, 179, 182, 12, 0, 0, 8, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 31, 24, 108, 23, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 16, 0, 0, 0, 160, 0, 0, 0, 2, 210, 0, 0, 0, 1, 1, 0, 0, 1, 0, 0, 0, 191, 0, 0, 0, 200, 0, 0, 0, 33, 3, 0, 0, 1, 0, 0, 0, 3, 105, 0, 0, 0, 3, 4, 0, 0, 1, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0, 25, 1, 0, 0, 3, 0, 0, 0, 3, 105, 0, 0, 0, 2, 4, 147, 1, 1, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0, 118, 0, 0, 0, 3, 0, 0, 0, 3, 105, 0, 0, 0, 1, 4, 0, 0, 1, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 184, 136, 0, 0, 0, 0, 0, 0, 0, 184, 136, 0, 0, 0, 0, 0, 0, 0, 214, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 200, 175, 0, 0, 0, 0, 0, 0, 230, 135, 68, 218, 199, 181, 0, 0, 4, 163, 83, 5, 0, 0, 0, 0 };
 }

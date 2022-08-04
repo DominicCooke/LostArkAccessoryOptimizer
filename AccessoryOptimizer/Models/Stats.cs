@@ -5,16 +5,16 @@ namespace AccessoryOptimizer.Models
     public class Stats
     {
         [JsonPropertyName("statType1")]
-        public Stat_Type StatType1;
+        public Stat_Type StatType1 { get; set; }
 
         [JsonPropertyName("stat1Quantity")]
-        public int Stat1Quantity;
+        public int Stat1Quantity { get; set; }
 
         [JsonPropertyName("statType2")]
-        public Stat_Type? StatType2 = null;
+        public Stat_Type? StatType2 { get; set; } = null;
 
         [JsonPropertyName("stat2Quantity")]
-        public int Stat2Quantity = 0;
+        public int Stat2Quantity { get; set; } = 0;
 
         public Stats(int statType1, int stat1Quantity)
         {
