@@ -15,12 +15,18 @@ namespace LostArkLogger
         Parser sniffer;
         Overlay overlay;
         private int _packetCount;
+        private int _auctionPacketCount;
 
         public event PropertyChangedEventHandler? PropertyChanged;
 
         public string PacketCount
         {
             get { return "Logged Packets: " + _packetCount; }
+        }
+
+        public string AuctionPacketCount
+        {
+            get { return "Logged Auction Packets: " + _auctionPacketCount; }
         }
 
         public MainWindow()
@@ -35,8 +41,18 @@ namespace LostArkLogger
                 _packetCount = totalPacketCount;
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(PacketCount)));
             };
-            loggedPacketCountLabel.Text = "Logged Packets : 0";
+
+            sniffer.onAuctionPacketTotalCount += (int totalAuctionPacketCount) =>
+             {
+                 _auctionPacketCount = totalAuctionPacketCount;
+                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(AuctionPacketCount)));
+             };
+
+            loggedPacketCountLabel.Text = "Logged Packets: 0";
             loggedPacketCountLabel.DataBindings.Add("Text", this, nameof(PacketCount));
+
+            loggedAuctionPacketCountLabel.Text = "Logged Auction Packets: 0";
+            loggedAuctionPacketCountLabel.DataBindings.Add("Text", this, nameof(AuctionPacketCount));
 
             overlay = new Overlay();
             overlay.AddSniffer(sniffer);
@@ -111,6 +127,7 @@ namespace LostArkLogger
             //_permutationService._rings.Add(new Accessory(AccessoryType.Ring, AccessoryRank.Relic, 100, 0, 0, new() { new Engraving(EngravingType.Adrenaline, 5), new Engraving(EngravingType.Hit_Master, 3) }, new Engraving(EngravingType.Move_Speed_Reduction, 3), new Stats(Stat_Type.Specialization, 200)));
 
             List<PermutationDisplay> permutations = _permutationService.Process(allDesiredEngravings, int.Parse(maxCost.Text), reuse_checkBox.Checked, filterWorryingNeg_checkBox.Checked, filterZeroNegEngraving_checkBox.Checked);
+            permutations = permutations.Where(p => p.NegativeSummary.AmountOfAtkPower == 0).ToList();
 
             message_Label.Text = $"Total Results ({permutations.Count})";
 

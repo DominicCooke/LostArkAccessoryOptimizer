@@ -19,6 +19,7 @@ namespace LostArkLogger
         public event Action onNewZone;
         public event Action beforeNewZone;
         public event Action<int> onPacketTotalCount;
+        public event Action<int> onAuctionPacketTotalCount;
         public bool use_npcap = false;
         private object lockPacketProcessing = new object(); // needed to synchronize UI swapping devices
         public Machina.Infrastructure.NetworkMonitorType? monitorType = null;
@@ -248,6 +249,8 @@ namespace LostArkLogger
                 
                 if (opcode == OpCodes.PKTAuctionSearchResult)
                 {
+                    onAuctionPacketTotalCount?.Invoke(loggedAuctionPacketCount++);
+
                     var pc = new PKTAuctionSearchResult(new BitReader(payload));
                     //var pc = new S_AuctionSearchResult(new BitReader(payload));
                     PSO.CurrentAccessories.AddRange(pc.Accessories);
@@ -583,6 +586,7 @@ namespace LostArkLogger
 
         UInt32 currentIpAddr = 0xdeadbeef;
         int loggedPacketCount = 0;
+        int loggedAuctionPacketCount = 0;
 
 
         void Device_OnPacketArrival_machina(Machina.Infrastructure.TCPConnection connection, byte[] bytes)
@@ -632,6 +636,7 @@ namespace LostArkLogger
                             currentIpAddr = srcAddr;
                             Logger.StartNewLogFile();
                             loggedPacketCount = 0;
+                            loggedAuctionPacketCount = 0;
                         }
                         else return;
                     }

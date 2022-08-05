@@ -31,7 +31,7 @@ namespace AccessoryOptimizer.Models
         [JsonPropertyName("statsValue")]
         public StatsValue StatsValue { get; set; }
 
-        [JsonIgnore]
+        [JsonPropertyName("stats")]
         public Stats Stats { get; set; }
 
         [JsonConstructor]

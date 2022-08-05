@@ -40,10 +40,10 @@
                         case EngravingType.Atk_Speed_Reduction:
                             AmountOfAtkSpeed += accessory.NegativeEngraving.EngravingValue;
                             break;
-                        case EngravingType.Defence_Reduction:
+                        case EngravingType.Atk_Power_Reduction:
                             AmountOfAtkPower += accessory.NegativeEngraving.EngravingValue;
                             break;
-                        case EngravingType.Atk_Power_Reduction:
+                        case EngravingType.Defence_Reduction:
                             AmountOfDefenceReduction += accessory.NegativeEngraving.EngravingValue;
                             break;
                     }

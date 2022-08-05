@@ -58,7 +58,7 @@ namespace LostArkLogger
                         case AccessoryType.Necklace:
                             {
                                 Accessory? accessory = GetNecklaceAccessory(ref bytes, (AccessoryType)accessoryType!, (AccessoryRank)accessoryRank);
-                                if (accessory != null)
+                                if (accessory != null && accessory?.Quality < 105)
                                 {
                                     accessories.Add(accessory);
                                 }
@@ -182,11 +182,15 @@ namespace LostArkLogger
             }
 
             //int bidPrice = GetInt32Value(earringBytes.Skip(277).Take(4).Reverse().ToArray());
-            int engraving1Type = GetInt32Value(necklaceBytes.Skip(164).Take(4).Reverse().ToArray());
-            int engraving1Amount = GetInt32Value(necklaceBytes.Skip(168).Take(4).Reverse().ToArray());
+            int engraving1Index = 164;
+            int engraving1Type = GetInt32Value(necklaceBytes.Skip(engraving1Index).Take(4).Reverse().ToArray());
+            int engraving1AmountIndex = accessoryRank == AccessoryRank.Relic ? engraving1Index  + 4: engraving1Index-4;
+            int engraving1Amount = GetInt32Value(necklaceBytes.Skip(engraving1AmountIndex).Take(4).Reverse().ToArray());
 
-            int engraving2Type = GetInt32Value(necklaceBytes.Skip(193).Take(4).Reverse().ToArray());
-            int engraving2Amount = GetInt32Value(necklaceBytes.Skip(197).Take(4).Reverse().ToArray());
+            int engraving2Index = 193;
+            int engraving2Type = GetInt32Value(necklaceBytes.Skip(engraving2Index).Take(4).Reverse().ToArray());
+            int engraving2AmountIndex = accessoryRank == AccessoryRank.Relic ? engraving2Index + 4 : engraving2Index - 4;
+            int engraving2Amount = GetInt32Value(necklaceBytes.Skip(engraving2AmountIndex).Take(4).Reverse().ToArray());
 
             int stat1Type = necklaceBytes.Skip(106).Take(1).ToArray()[0];
             int stat1Quantity = GetInt32Value(necklaceBytes.Skip(127).Take(4).Reverse().ToArray());
@@ -219,11 +223,15 @@ namespace LostArkLogger
             }
 
             //int bidPrice = GetInt32Value(earringBytes.Skip(25).Take(4).Reverse().ToArray());
+            int engraving1Index = 135;
             int engraving1Type = GetInt32Value(earringBytes.Skip(135).Take(4).Reverse().ToArray());
-            int engraving1Amount = GetInt32Value(earringBytes.Skip(139).Take(4).Reverse().ToArray());  
+            int engraving1AmountIndex = accessoryRank == AccessoryRank.Relic ? engraving1Index + 4 : engraving1Index - 4;
+            int engraving1Amount = GetInt32Value(earringBytes.Skip(engraving1AmountIndex).Take(4).Reverse().ToArray());
 
+            int engraving2Index = 164;
             int engraving2Type = GetInt32Value(earringBytes.Skip(164).Take(4).Reverse().ToArray());
-            int engraving2Amount = GetInt32Value(earringBytes.Skip(168).Take(4).Reverse().ToArray());
+            int engraving2AmountIndex = accessoryRank == AccessoryRank.Relic ? engraving2Index + 4 : engraving2Index - 4;
+            int engraving2Amount = GetInt32Value(earringBytes.Skip(engraving2AmountIndex).Take(4).Reverse().ToArray());
 
             int statType = earringBytes.Skip(77).Take(1).ToArray()[0];
             int statQuantity = GetInt32Value(earringBytes.Skip(98).Take(4).Reverse().ToArray());

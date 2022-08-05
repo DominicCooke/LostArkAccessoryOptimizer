@@ -137,6 +137,8 @@
             this.label19 = new System.Windows.Forms.Label();
             this.sniffModeCheckbox = new System.Windows.Forms.CheckBox();
             this.label20 = new System.Windows.Forms.Label();
+            this.label22 = new System.Windows.Forms.Label();
+            this.loggedAuctionPacketCountLabel = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -495,7 +497,7 @@
             this.maxCost.Name = "maxCost";
             this.maxCost.Size = new System.Drawing.Size(70, 23);
             this.maxCost.TabIndex = 53;
-            this.maxCost.Text = "99999";
+            this.maxCost.Text = "15001";
             // 
             // engraving6Quantity_2
             // 
@@ -1193,11 +1195,32 @@
             this.label20.TabIndex = 102;
             this.label20.Text = "Parser by Shalzuth";
             // 
+            // label22
+            // 
+            this.label22.AutoSize = true;
+            this.label22.Location = new System.Drawing.Point(329, 12);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(72, 15);
+            this.label22.TabIndex = 103;
+            this.label22.Text = "Version 1.0.0";
+            // 
+            // loggedAuctionPacketCountLabel
+            // 
+            this.loggedAuctionPacketCountLabel.AutoSize = true;
+            this.loggedAuctionPacketCountLabel.Location = new System.Drawing.Point(156, 12);
+            this.loggedAuctionPacketCountLabel.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.loggedAuctionPacketCountLabel.Name = "loggedAuctionPacketCountLabel";
+            this.loggedAuctionPacketCountLabel.Size = new System.Drawing.Size(150, 15);
+            this.loggedAuctionPacketCountLabel.TabIndex = 104;
+            this.loggedAuctionPacketCountLabel.Text = "Logged Auction Packets : 0";
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1373, 969);
+            this.Controls.Add(this.loggedAuctionPacketCountLabel);
+            this.Controls.Add(this.label22);
             this.Controls.Add(this.label20);
             this.Controls.Add(this.sniffModeCheckbox);
             this.Controls.Add(this.label19);
@@ -1425,5 +1448,7 @@
         private LinkLabel linkLabel1;
         private Label label20;
         private Label label21;
+        private Label label22;
+        public Label loggedAuctionPacketCountLabel;
     }
 }
